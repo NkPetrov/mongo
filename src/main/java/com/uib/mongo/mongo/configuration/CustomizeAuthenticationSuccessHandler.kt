@@ -14,7 +14,7 @@ class CustomizeAuthenticationSuccessHandler : AuthenticationSuccessHandler {
         response.status = HttpServletResponse.SC_OK
         for (auth in authentication.authorities) {
             if ("ADMIN" == auth.authority) {
-                response.sendRedirect("/dashboard")
+                response.sendRedirect("/start")
             }else response.sendRedirect("/start")
         }
     }

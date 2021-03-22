@@ -1,6 +1,6 @@
 package com.uib.mongo.mongo.controller
 
-import com.uib.mongo.mongo.repository.entity.User
+import com.uib.mongo.mongo.repository.entity.user.User
 import com.uib.mongo.mongo.service.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
@@ -38,13 +38,42 @@ class LoginController {
         return modelAndView
     }
 
+    @RequestMapping(value = ["/registration"], method = [RequestMethod.GET])
+    fun registration(): ModelAndView {
+        val modelAndView = ModelAndView()
+        val user = User()
+        modelAndView.addObject("user", user)
+        modelAndView.viewName = "registration"
+        return modelAndView
+    }
+
     @RequestMapping(value = ["/signup"], method = [RequestMethod.POST])
     fun createNewUser(@Validated user: User, bindingResult: BindingResult): ModelAndView {
         val modelAndView = ModelAndView()
-        val userExists = userService!!.findUserByEmail(user.email)
+        val userExists = userService!!.findUserByName(user.name)
         if (userExists != null) {
             bindingResult
                     .rejectValue("email", "error.user",
+                            "There is already a user registered with the username provided")
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.viewName = "signup"
+        } else {
+            userService.saveUser(user)
+            modelAndView.addObject("successMessage", "User has been registered successfully")
+            modelAndView.addObject("user", User())
+            modelAndView.viewName = "login"
+        }
+        return modelAndView
+    }
+
+    @RequestMapping(value = ["/registration"], method = [RequestMethod.POST])
+    fun createNewUserReg(@Validated user: User, bindingResult: BindingResult): ModelAndView {
+        val modelAndView = ModelAndView()
+        val userExists = userService!!.findUserByName(user.name)
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("name", "error.user",
                             "There is already a user registered with the username provided")
         }
         if (bindingResult.hasErrors()) {
@@ -62,9 +91,9 @@ class LoginController {
     fun dashboard(): ModelAndView {
         val modelAndView = ModelAndView()
         val auth = SecurityContextHolder.getContext().authentication
-        val user = userService!!.findUserByEmail(auth.name)
+        val user = userService!!.findUserByName(auth.name)
         modelAndView.addObject("currentUser", user)
-        modelAndView.addObject("fullName", "Welcome " + user!!.fullname)
+        modelAndView.addObject("name", "Welcome " + user!!.name)
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role")
         modelAndView.viewName = "dashboard"
         return modelAndView

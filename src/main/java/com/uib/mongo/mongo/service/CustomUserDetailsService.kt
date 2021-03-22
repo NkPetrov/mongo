@@ -2,8 +2,8 @@ package com.uib.mongo.mongo.service
 
 import com.uib.mongo.mongo.repository.RoleRepository
 import com.uib.mongo.mongo.repository.UserRepository
-import com.uib.mongo.mongo.repository.entity.Role
-import com.uib.mongo.mongo.repository.entity.User
+import com.uib.mongo.mongo.repository.entity.user.Role
+import com.uib.mongo.mongo.repository.entity.user.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -25,20 +25,20 @@ class CustomUserDetailsService : UserDetailsService {
 
     @Autowired
     private val bCryptPasswordEncoder: BCryptPasswordEncoder? = null
-    fun findUserByEmail(email: String?): User? {
-        return userRepository!!.findByEmail(email)
+
+    fun findUserByName(email: String?): User? {
+        return userRepository!!.findByName(email)
     }
 
     fun saveUser(user: User) {
         user.password = bCryptPasswordEncoder!!.encode(user.password)
-        user.isEnabled = true
         val userRole = roleRepository!!.findByRole("ADMIN")
         user.roles = HashSet<Role>(Arrays.asList(userRole))
         userRepository!!.save(user)
     }
 
-    override fun loadUserByUsername(email: String): UserDetails {
-        val user = userRepository!!.findByEmail(email)
+    override fun loadUserByUsername(name: String): UserDetails {
+        val user = userRepository!!.findByName(name)
         return if (user != null) {
             val authorities = getUserAuthority(user.roles)
             buildUserForAuthentication(user, authorities)
@@ -54,6 +54,6 @@ class CustomUserDetailsService : UserDetailsService {
     }
 
     private fun buildUserForAuthentication(user: User, authorities: List<GrantedAuthority>): UserDetails {
-        return org.springframework.security.core.userdetails.User(user.email, user.password, authorities)
+        return org.springframework.security.core.userdetails.User(user.name, user.password, authorities)
     }
 }
