@@ -1,11 +1,13 @@
 package com.uib.mongo.mongo.controller
 
+import com.uib.mongo.mongo.repository.entity.User
 import com.uib.mongo.mongo.service.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.servlet.ModelAndView
@@ -14,6 +16,11 @@ import org.springframework.web.servlet.ModelAndView
 class LoginController {
     @Autowired
     private val userService: CustomUserDetailsService? = null
+
+    @GetMapping("/start")
+    fun getStartingPage(): String{
+        return "start"
+    }
 
     @RequestMapping(value = ["/login"], method = [RequestMethod.GET])
     fun login(): ModelAndView {
@@ -57,7 +64,7 @@ class LoginController {
         val auth = SecurityContextHolder.getContext().authentication
         val user = userService!!.findUserByEmail(auth.name)
         modelAndView.addObject("currentUser", user)
-        modelAndView.addObject("fullName", "Welcome " + user.fullname)
+        modelAndView.addObject("fullName", "Welcome " + user!!.fullname)
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role")
         modelAndView.viewName = "dashboard"
         return modelAndView

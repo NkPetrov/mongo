@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "role")
 class Role {
-    @Id
+    @field:Id
     var id: String? = null
 
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
