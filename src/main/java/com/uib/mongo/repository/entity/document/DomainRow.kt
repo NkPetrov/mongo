@@ -1,4 +1,4 @@
-package com.uib.mongo.mongo.repository.entity.document
+package com.uib.mongo.repository.entity.document
 
 data class DomainRow (
         var status: String? = null,

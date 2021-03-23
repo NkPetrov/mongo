@@ -1,6 +1,6 @@
-package com.uib.mongo.mongo.repository
+package com.uib.mongo.repository
 
-import com.uib.mongo.mongo.repository.entity.user.User
+import com.uib.mongo.repository.entity.user.User
 import org.springframework.data.mongodb.repository.MongoRepository
 
 interface UserRepository : MongoRepository<User?, String?> {

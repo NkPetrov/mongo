@@ -1,7 +1,7 @@
-package com.uib.mongo.mongo.controller
+package com.uib.mongo.controller
 
-import com.uib.mongo.mongo.repository.entity.user.User
-import com.uib.mongo.mongo.service.CustomUserDetailsService
+import com.uib.mongo.repository.entity.user.User
+import com.uib.mongo.service.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller

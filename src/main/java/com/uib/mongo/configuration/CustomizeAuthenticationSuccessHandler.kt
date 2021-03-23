@@ -1,4 +1,4 @@
-package com.uib.mongo.mongo.configuration
+package com.uib.mongo.configuration
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler

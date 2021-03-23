@@ -1,4 +1,4 @@
-package com.uib.mongo.mongo.configuration
+package com.uib.mongo.configuration
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

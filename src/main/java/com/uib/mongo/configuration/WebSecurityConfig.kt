@@ -1,6 +1,6 @@
-package com.uib.mongo.mongo.configuration
+package com.uib.mongo.configuration
 
-import com.uib.mongo.mongo.service.CustomUserDetailsService
+import com.uib.mongo.service.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

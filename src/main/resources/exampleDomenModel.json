@@ -1,28 +1,34 @@
 {
-  "document": [
+  "Questionnaire": [
     {
+      "questionnaireId": "1",
       "name": "name",
-      "list": [
+      "lists": [
         {
           "listId": "1",
-          "listName": null,
-
+          "listName": "listName",
           "part": [
             {
-              "partName": "null",
-              "question": "null",
-            [
-              {
-                "nameQuestion": "null",
-              "domainName": "null",
-                "row": [
-                  {
-                    "status": "",
-                    "description": ""
-                  }
-                ]
-              }
-            ]
+              "partId": "1",
+              "partName": "partName",
+              "domainSections": [
+                {
+                  "domainId": "1",
+                  "nameDomainSection": "name",
+                  "domainQuestion": [
+                    {
+                      "questionId": "",
+                      "questions": "questions",
+                      "domainRows": [
+                        {
+                          "status": "status",
+                          "description": "description"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

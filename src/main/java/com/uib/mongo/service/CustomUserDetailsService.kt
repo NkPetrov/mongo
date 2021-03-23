@@ -1,9 +1,9 @@
-package com.uib.mongo.mongo.service
+package com.uib.mongo.service
 
-import com.uib.mongo.mongo.repository.RoleRepository
-import com.uib.mongo.mongo.repository.UserRepository
-import com.uib.mongo.mongo.repository.entity.user.Role
-import com.uib.mongo.mongo.repository.entity.user.User
+import com.uib.mongo.repository.RoleRepository
+import com.uib.mongo.repository.UserRepository
+import com.uib.mongo.repository.entity.user.Role
+import com.uib.mongo.repository.entity.user.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority

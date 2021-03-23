@@ -1,4 +1,4 @@
-package com.uib.mongo.mongo.repository.entity.user
+package com.uib.mongo.repository.entity.user
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.IndexDirection
