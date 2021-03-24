@@ -1,10 +1,12 @@
 package com.uib.mongo.repository.entity.document
 
 import org.springframework.data.annotation.Id
+import java.math.BigInteger
 
 data class DomainQuestion(
-        @field:Id
-        var questionId: Long,
-        var questions: String? = null,
+        var questions: String,
         var domainRows: List<DomainRow>? = null
-)
+){
+        @field:Id
+        var questionId: BigInteger? = null
+}

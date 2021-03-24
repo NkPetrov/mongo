@@ -1,12 +1,16 @@
 package com.uib.mongo.repository.entity.document
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
+import java.math.BigInteger
+import java.util.*
 
-@Document(collection = "lists")
 data class ListQuestionnaire(
+        var listName: String
+        //var parts: List<PartListQuestionnaire>? = null
+){
         @field:Id
-        var listId: Long,
-        var listName: String,
-        var part: List<PartQuestionnaire>? = null
-)
+        var listId: String? = UUID.randomUUID().toString()
+
+}

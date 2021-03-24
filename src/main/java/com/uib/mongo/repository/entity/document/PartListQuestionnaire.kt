@@ -3,10 +3,10 @@ package com.uib.mongo.repository.entity.document
 import org.springframework.data.annotation.Id
 import java.math.BigInteger
 
-data class PartQuestionnaire(
+data class PartListQuestionnaire(
         var name: String,
-        var domainSections: List<DomainQuestionnaire>? = null
+        var parts: List<PartQuestionnaire>? = null
 ){
         @field:Id
-        var partId: BigInteger? = null
+        var partListId: BigInteger? = null
 }

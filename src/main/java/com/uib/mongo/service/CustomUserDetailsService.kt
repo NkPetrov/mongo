@@ -7,6 +7,7 @@ import com.uib.mongo.repository.entity.user.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -55,5 +56,9 @@ class CustomUserDetailsService : UserDetailsService {
 
     private fun buildUserForAuthentication(user: User, authorities: List<GrantedAuthority>): UserDetails {
         return org.springframework.security.core.userdetails.User(user.name, user.password, authorities)
+    }
+
+    fun getCurrentUser(): org.springframework.security.core.userdetails.User? {
+        return SecurityContextHolder.getContext().authentication.principal as org.springframework.security.core.userdetails.User
     }
 }
