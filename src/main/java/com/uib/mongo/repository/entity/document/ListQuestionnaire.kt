@@ -9,5 +9,4 @@ data class ListQuestionnaire(
 ): GenerateUUID {
         @field:Id
         var listId: String? = generateUid()
-
 }

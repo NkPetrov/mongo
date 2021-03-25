@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id
 
 data class PartQuestionnaire(
         var name: String,
+        var questions: List<Question>,
         var domainSections: List<DomainQuestionnaire>? = null
 ): GenerateUUID {
         @field:Id
