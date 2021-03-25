@@ -7,10 +7,10 @@ import java.math.BigInteger
 import java.util.*
 
 data class ListQuestionnaire(
-        var listName: String
-        //var parts: List<PartListQuestionnaire>? = null
-){
+        var listName: String,
+        var parts: List<PartListQuestionnaire>? = null
+): GenerateUUID{
         @field:Id
-        var listId: String? = UUID.randomUUID().toString()
+        var listId: String? = generateUid()
 
 }

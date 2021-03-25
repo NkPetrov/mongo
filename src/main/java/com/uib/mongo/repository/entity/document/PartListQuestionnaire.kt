@@ -6,7 +6,7 @@ import java.math.BigInteger
 data class PartListQuestionnaire(
         var name: String,
         var parts: List<PartQuestionnaire>? = null
-){
+): GenerateUUID{
         @field:Id
-        var partListId: BigInteger? = null
+        var partListId: String? = generateUid()
 }

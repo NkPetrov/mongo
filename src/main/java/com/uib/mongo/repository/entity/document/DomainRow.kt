@@ -6,7 +6,7 @@ import java.math.BigInteger
 data class DomainRow (
         var status: String? = null,
         var description: String? = null
-){
+): GenerateUUID{
     @field:Id
-    var domainRow: BigInteger? = null
+    var domainRow: String? = generateUid()
 }

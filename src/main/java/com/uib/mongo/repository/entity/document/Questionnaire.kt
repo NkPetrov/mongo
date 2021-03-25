@@ -10,7 +10,7 @@ import java.util.*
 data class Questionnaire(
         var name: String,
         var lists: List<ListQuestionnaire>? = null
-){
+): GenerateUUID{
         @field:Id
-        var questionnaireId: String? = UUID.randomUUID().toString()
+        var questionnaireId: String? = generateUid()
 }
