@@ -1,12 +1,12 @@
 package com.uib.mongo.repository.entity.document
 
+import com.uib.mongo.repository.entity.document.UUID.GenerateUUID
 import org.springframework.data.annotation.Id
-import java.math.BigInteger
 
 data class DomainRow (
         var status: String? = null,
         var description: String? = null
-): GenerateUUID{
+): GenerateUUID {
     @field:Id
     var domainRow: String? = generateUid()
 }

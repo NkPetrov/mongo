@@ -1,12 +1,12 @@
 package com.uib.mongo.repository.entity.document
 
+import com.uib.mongo.repository.entity.document.UUID.GenerateUUID
 import org.springframework.data.annotation.Id
-import java.math.BigInteger
 
 data class PartListQuestionnaire(
         var name: String,
         var parts: List<PartQuestionnaire>? = null
-): GenerateUUID{
+): GenerateUUID {
         @field:Id
         var partListId: String? = generateUid()
 }
