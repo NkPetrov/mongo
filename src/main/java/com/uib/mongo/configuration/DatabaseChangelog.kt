@@ -2,7 +2,12 @@ package com.uib.mongo.configuration
 
 import com.github.cloudyrock.mongock.ChangeLog
 import com.github.cloudyrock.mongock.ChangeSet
+import com.uib.mongo.repository.DomainAnswersRepository
+import com.uib.mongo.repository.DomainQuestionnaireRepository
 import com.uib.mongo.repository.ListQuestionnaireRepository
+import com.uib.mongo.repository.PartListQuestionnaireRepository
+import com.uib.mongo.repository.PartQuestionnaireRepository
+import com.uib.mongo.repository.QuestionRepository
 import com.uib.mongo.repository.QuestionnaireRepository
 import com.uib.mongo.repository.UserRepository
 import com.uib.mongo.repository.entity.document.DomainAnswers
@@ -22,18 +27,47 @@ class DatabaseChangelog {
             userRepository.insert(User("nik","nik"))
 
     @ChangeSet(order = "002", id = "2", author = "Nikolay")
-    fun setQuestionnaire(questionnaireRepository: QuestionnaireRepository, listQuestionnaireRepository: ListQuestionnaireRepository) {
-        var domainAnswers: List<DomainAnswers> = listOf(DomainAnswers(status = "Not",description = "not"), DomainAnswers(status = "Not",description = "not"))
-        var domain: List<DomainQuestionnaire> = listOf(DomainQuestionnaire(nameDomainSection = "Inner Users"), DomainQuestionnaire(nameDomainSection = "External Users"))
-        var questions: List<Question> = listOf(Question("Question 1"),Question("Question 2"),Question("Question 3"))
+    fun setQuestionnaire(questionnaireRepository: QuestionnaireRepository,
+                         listQuestionnaireRepo: ListQuestionnaireRepository,
+                         partListQuestionnaireRepo: PartListQuestionnaireRepository,
+                         partQuestionnaireRepo: PartQuestionnaireRepository,
+                         questionRepo: QuestionRepository,
+                         domainQuestionnaireRepo: DomainQuestionnaireRepository,
+                         domainAnswersRepo: DomainAnswersRepository
+                         ) {
 
-        var part1: List<PartQuestionnaire> = listOf(PartQuestionnaire(name = "Inner 1",questions,domain),PartQuestionnaire(name = "Inner 2",questions,domain))
+        //add ansvers domain
+        var domainAnswers: List<DomainAnswers> = listOf(
+                domainAnswersRepo.insert(DomainAnswers(status = "Not",description = "not")),
+                domainAnswersRepo.insert(DomainAnswers(status = "Not",description = "not")))
 
-        var part2: List<PartListQuestionnaire> = listOf(PartListQuestionnaire(name = "External 1", part1), PartListQuestionnaire(name = "External 2", part1))
+        //add domain model
+        var domain: List<DomainQuestionnaire> = listOf(
+                domainQuestionnaireRepo.insert(DomainQuestionnaire(nameDomainSection = "Inner Users")),
+                domainQuestionnaireRepo.insert(DomainQuestionnaire(nameDomainSection = "External Users")))
 
-        var list1: List<ListQuestionnaire> = listOf(ListQuestionnaire(listName = "List1",part2), ListQuestionnaire(listName = "List2",part2), ListQuestionnaire(listName = "List3",part2))
+        //add questions
+        var questions: List<Question> = listOf(
+                questionRepo.insert(Question("Question 1")),
+                questionRepo.insert(Question("Question 2")),
+                questionRepo.insert(Question("Question 3")))
 
-        var b = listQuestionnaireRepository.insert(list1)
-        questionnaireRepository.insert(Questionnaire(name = "Поведенческая Биометрия", lists = b))
+        //add inner part
+        var part1: List<PartQuestionnaire> = listOf(
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 1",questions,domain)),
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 2",questions,domain)))
+
+        //add external part
+        var part2: List<PartListQuestionnaire> = listOf(
+                partListQuestionnaireRepo.insert(PartListQuestionnaire(name = "External 1", part1)),
+                partListQuestionnaireRepo.insert(PartListQuestionnaire(name = "External 2", part1)))
+
+        //add lists
+        var list1: List<ListQuestionnaire> = listOf(
+                listQuestionnaireRepo.insert(ListQuestionnaire(listName = "List1",part2)),
+                listQuestionnaireRepo.insert(ListQuestionnaire(listName = "List2",part2)),
+                listQuestionnaireRepo.insert(ListQuestionnaire(listName = "List3",part2)))
+
+        questionnaireRepository.insert(Questionnaire(name = "Поведенческая Биометрия", lists = list1, creator = "admin"))
     }
 }
