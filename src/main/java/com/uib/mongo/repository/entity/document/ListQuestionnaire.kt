@@ -7,8 +7,12 @@ import org.springframework.data.mongodb.core.mapping.DBRef
 data class ListQuestionnaire(
         var listName: String,
         @DBRef
-        var parts: List<PartListQuestionnaire>? = null
+        var parts: List<PartQuestionnaire>? = null,
+
+        @field:DBRef
+        var domainSections: List<DomainQuestionnaire>? = null
+
 ): GenerateUUID {
-        @field:Id
-        var listId: String? = generateUid()
+    @field:Id
+    var listId: String? = generateUid()
 }

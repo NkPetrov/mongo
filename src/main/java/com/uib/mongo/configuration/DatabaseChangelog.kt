@@ -2,7 +2,6 @@ package com.uib.mongo.configuration
 
 import com.github.cloudyrock.mongock.ChangeLog
 import com.github.cloudyrock.mongock.ChangeSet
-import com.uib.mongo.repository.DomainAnswersRepository
 import com.uib.mongo.repository.DomainQuestionnaireRepository
 import com.uib.mongo.repository.ListQuestionnaireRepository
 import com.uib.mongo.repository.PartListQuestionnaireRepository
@@ -10,7 +9,6 @@ import com.uib.mongo.repository.PartQuestionnaireRepository
 import com.uib.mongo.repository.QuestionRepository
 import com.uib.mongo.repository.QuestionnaireRepository
 import com.uib.mongo.repository.UserRepository
-import com.uib.mongo.repository.entity.document.DomainAnswers
 import com.uib.mongo.repository.entity.document.DomainQuestionnaire
 import com.uib.mongo.repository.entity.document.ListQuestionnaire
 import com.uib.mongo.repository.entity.document.PartListQuestionnaire
@@ -33,13 +31,7 @@ class DatabaseChangelog {
                          partQuestionnaireRepo: PartQuestionnaireRepository,
                          questionRepo: QuestionRepository,
                          domainQuestionnaireRepo: DomainQuestionnaireRepository,
-                         domainAnswersRepo: DomainAnswersRepository
                          ) {
-
-        //add ansvers domain
-        var domainAnswers: List<DomainAnswers> = listOf(
-                domainAnswersRepo.insert(DomainAnswers(status = "Not",description = "not")),
-                domainAnswersRepo.insert(DomainAnswers(status = "Not",description = "not")))
 
         //add domain model
         var domain: List<DomainQuestionnaire> = listOf(

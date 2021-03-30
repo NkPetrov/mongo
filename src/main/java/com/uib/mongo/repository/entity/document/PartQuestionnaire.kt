@@ -5,13 +5,13 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document("partQuestionnaire")
 data class PartQuestionnaire(
         var name: String,
+        var parentId: String,
+        var children : PartQuestionnaire? = null,
+
         @field:DBRef
-        var questions: List<Question>? = null,
-        @field:DBRef
-        var domainSections: List<DomainQuestionnaire>? = null
+        var questions: List<Question>? = null
 ): GenerateUUID {
         @field:Id
         var partId: String? = generateUid()
