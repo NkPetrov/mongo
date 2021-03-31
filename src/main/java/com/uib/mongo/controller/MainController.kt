@@ -70,21 +70,4 @@ class MainController(
         questionnaireService.saveEditPart(part)
         return "redirect:/main/editList/${listId}"
     }
-
-    @GetMapping("/editQuestion/{questionId}/{listId}")
-    fun getRow(@PathVariable("questionId") questionId: String,
-                        @PathVariable("listId") listId: String,
-                 model: Model): String{
-        model.addAttribute("question",
-                questionnaireService.getQuestionByQuestionId(questionId))
-        model.addAttribute("listId",listId)
-        return "editQuestion"
-    }
-
-    @PostMapping("/editQuestion/{listId}")
-    fun editRow(@PathVariable("listId") listId: String,
-                     question: Question): String{
-        questionnaireService.saveEditQuestion(question)
-        return "redirect:/main/editList/${listId}"
-    }
 }

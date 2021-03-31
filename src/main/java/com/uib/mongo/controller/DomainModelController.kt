@@ -25,7 +25,7 @@ class DomainModelController(
         return "domain"
     }
 
-    @GetMapping("/editDomain//{listId}/{domainId}")
+    @GetMapping("/editDomain/{listId}/{domainId}")
     fun editList(@PathVariable("domainId") domainId: String,
                  @PathVariable("listId") listId: String,
                  model: Model): String {
