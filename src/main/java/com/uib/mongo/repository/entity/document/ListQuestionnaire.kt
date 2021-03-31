@@ -3,10 +3,13 @@ package com.uib.mongo.repository.entity.document
 import com.uib.mongo.repository.entity.document.UUID.GenerateUUID
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
+import org.springframework.data.mongodb.core.mapping.Document
 
+@Document("lists")
 data class ListQuestionnaire(
         var listName: String,
-        @DBRef
+
+        @field:DBRef
         var parts: List<PartQuestionnaire>? = null,
 
         @field:DBRef
@@ -14,5 +17,5 @@ data class ListQuestionnaire(
 
 ): GenerateUUID {
     @field:Id
-    var listId: String? = generateUid()
+    var listId: String = generateUid()
 }

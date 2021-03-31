@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/main")
-class MainController(
+@RequestMapping("/domain")
+class DomainModelController(
         private val questionnaireService: QuestionnaireService,
         private val customUserDetailsService: CustomUserDetailsService
 ) {

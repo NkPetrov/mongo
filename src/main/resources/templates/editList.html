@@ -50,50 +50,56 @@
 </div>
 <table class="table table-bordered">
     <thead class="table table-striped"></thead>
-    <tr scope="row" th:each="partList: ${list.parts}">
-        <div class="container">
-            <div class="row">
+    <tr scope="row" th:each="part: ${partsRecursive}">
+        <div class="container" th:switch="${part.parentId}">
+            <div class="row" th:case="'list'">
                 <div class="col">
-                    <h5 th:text="${partList.name}" style="margin-bottom: 10px"></h5>
+                    <h5 th:text="${part.name}" style="margin-bottom: 10px"></h5>
                 </div>
                 <div class="col-1 d-flex justify-content-end">
-                    <a th:text="Edit"
-                       th:href="@{'/main/editExternalPart/'+${partList.partListId}+'/'+${list.listId}}"
-                       class="badge badge-secondary badge-pill"></a>
+                    <a th:text="'[еdit]'"
+                       th:href="@{'/main/editInnerPart/'+${part.partId}+'/'+${list.listId}}"
+                    ></a>
                 </div>
             </div>
-            <ul th:each="part: ${partList.parts}">
-                <li>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <h7 th:text="${part.name}" style="margin-bottom: 10px"></h7>
-                            </div>
-                            <div class="col-1 d-flex justify-content-end">
-                                <a th:text="Edit"
-                                   th:href="@{'/main/editInnerPart/'+${part.partId}+'/'+${list.listId}}"
-                                   class="badge badge-secondary badge-pill"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-numbered" th:each="question: ${part.questions}">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col">
-                                        <h10 th:text="${question.question}"></h10>
-                                    </div>
-                                    <div class="col-1 d-flex justify-content-end">
-                                        <a th:text="Edit"
-                                           th:href="@{'/main/editQuestion/'+${question.questionId}+'/'+${list.listId}}"
-                                           class="badge badge-secondary badge-pill"></a>
-                                    </div>
+                <ul th:case="'inner'">
+                    <li>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <h7 th:text="${part.name}" style="margin-bottom: 10px"></h7>
+                                </div>
+                                <div class="col-1 d-flex justify-content-end">
+                                    <a th:text="'[еdit]'"
+                                       th:href="@{'/main/editInnerPart/'+${part.partId}+'/'+${list.listId}}"
+                                    ></a>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                        </div>
+                        <ul class="list-group list-group-numbered" th:each="question: ${part.questions}">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h10 th:text="${question.name}"></h10>
+                                        </div>
+                                        <div class="col-1 d-flex justify-content-end">
+                                            <a th:text="'[еdit]'"
+                                               th:href="@{'/main/editQuestion/'+${question.questionId}+'/'+${list.listId}}"
+                                            ></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--                    <div th:include="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
+                    <!--                    <div th:insert="~{editList :: recurs}"></div>-->
+                </ul>
+                    <!--                    <div th:include="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
+                    <!--                    <div th:insert="~{editList :: recurs}"></div>-->
+                </ul>
+            </div>
         </div>
     </tr>
 </table>

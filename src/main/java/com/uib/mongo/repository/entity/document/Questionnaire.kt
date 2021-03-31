@@ -13,5 +13,5 @@ data class Questionnaire(
         var lists: List<ListQuestionnaire>? = null
 ): GenerateUUID {
         @field:Id
-        var questionnaireId: String? = generateUid()
+        var questionnaireId: String = generateUid()
 }

@@ -38,18 +38,25 @@
     <div class="col d-flex justify-content-center">
         <div class="card-body">
             <form th:action="@{'/main/editInnerPart/'+${listId}}" th:object="${part}" method="post">
+                <div class="form-group" th:hidden="${false}">
+                    <label>parentId</label>
+                    <input th:field="*{parentId}" class="form-control">
+                </div>
+                <div class="form-group" th:hidden="${false}">
+                    <label>children</label>
+                    <input th:field="*{children}" class="form-control">
+                </div>
+                <div class="form-group" th:hidden="${false}">
+                    <label>questions</label>
+                    <input th:field="*{questions}" class="form-control">
+                </div>
+                <div class="form-group" th:hidden="${false}">
+                    <label>number</label>
+                    <input th:field="*{number}" class="form-control">
+                </div>
                 <div class="form-group">
                     <label>List name</label>
-                    <input th:field="*{name}"
-                              class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${false}">
-                    <label>Доменные области</label>
-                    <input th:field="*{domainSections}" class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${false}">
-                    <label>Вопросы</label>
-                    <input th:field="*{questions}" class="form-control">
+                    <input th:field="*{name}" class="form-control">
                 </div>
                 <div class="form-group" th:hidden="${false}">
                     <label>PartId</label>

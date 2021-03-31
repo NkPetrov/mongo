@@ -8,5 +8,5 @@ data class DomainQuestionnaire(
         var nameDomainSection: String,
 ): GenerateUUID {
         @field:Id
-        var domainId: String? = generateUid()
+        var domainId: String = generateUid()
 }

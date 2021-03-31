@@ -3,16 +3,19 @@ package com.uib.mongo.repository.entity.document
 import com.uib.mongo.repository.entity.document.UUID.GenerateUUID
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
-import org.springframework.data.mongodb.core.mapping.Document
 
 data class PartQuestionnaire(
-        var name: String,
-        var parentId: String,
-        var children : PartQuestionnaire? = null,
+        var parentId: String? = null,
 
         @field:DBRef
-        var questions: List<Question>? = null
-): GenerateUUID {
+        var children : List<PartQuestionnaire>? = null,
+
+        @field:DBRef
+        var questions: List<Question>? = null,
+
+        override var number: String? = null,
+        override var name: String? = null
+): GenerateUUID, SectionQuestionnaire {
         @field:Id
-        var partId: String? = generateUid()
+        var partId: String = generateUid()
 }
