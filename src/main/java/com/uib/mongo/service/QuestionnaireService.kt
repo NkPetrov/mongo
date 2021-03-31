@@ -1,9 +1,11 @@
 package com.uib.mongo.service
 
+import com.uib.mongo.repository.DomainQuestionnaireRepository
 import com.uib.mongo.repository.ListQuestionnaireRepository
 import com.uib.mongo.repository.PartQuestionnaireRepository
 import com.uib.mongo.repository.QuestionRepository
 import com.uib.mongo.repository.QuestionnaireRepository
+import com.uib.mongo.repository.entity.document.DomainQuestionnaire
 import com.uib.mongo.repository.entity.document.ListQuestionnaire
 import com.uib.mongo.repository.entity.document.PartQuestionnaire
 import com.uib.mongo.repository.entity.document.Question
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service
 class QuestionnaireService(
         private val questionnaireRepo: QuestionnaireRepository,
         private val listQuestionnaireRepo: ListQuestionnaireRepository,
+        private val domainQuestionnaireRepo: DomainQuestionnaireRepository,
         private val partQuestionnaireRepo: PartQuestionnaireRepository,
         private val questionRepo: QuestionRepository
         ) {
@@ -32,6 +35,8 @@ class QuestionnaireService(
     fun getQuestionByQuestionId(questionId: String): Question? =
             questionRepo.findByQuestionId(questionId)
 
+    fun getDomainById(domainId: String): DomainQuestionnaire? = domainQuestionnaireRepo.findByDomainId(domainId)
+
     fun saveEditList(list: ListQuestionnaire) = listQuestionnaireRepo.save(list)
 
 //    fun saveEditPartList(part: PartListQuestionnaire) = partListQuestionnaireRepo.save(part)
@@ -39,6 +44,8 @@ class QuestionnaireService(
     fun saveEditPart(part: PartQuestionnaire) = partQuestionnaireRepo.save(part)
 
     fun saveEditQuestion(question: Question) = questionRepo.save(question)
+
+    fun saveEditDomain(domain: DomainQuestionnaire) = domainQuestionnaireRepo.save(domain)
 
     fun getPartRecursiveList(parts: List<PartQuestionnaire>): List<PartQuestionnaire>? {
         if (parts != null){

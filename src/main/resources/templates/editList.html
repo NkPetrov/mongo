@@ -18,7 +18,7 @@
 <div class="alert alert-primary">
     <div class="row">
         <div class="col-2 d-flex justify-content-center">
-            <form th:action="@{'/main/history/'}" th:method="get" type="button"
+            <form th:action="@{'/domain/'+${listId}}" th:method="get" type="button"
                   class="d-flex justify-content-end">
                 <input type="submit" value="Manage subject area" class="btn btn-primary"/>
             </form>
