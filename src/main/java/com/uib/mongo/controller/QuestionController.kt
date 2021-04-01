@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 @RequestMapping("/question")
 class QuestionController(
-        private val questionnaireService: QuestionnaireService,
-        private val customUserDetailsService: CustomUserDetailsService
+        private val questionnaireService: QuestionnaireService
 ) {
     @GetMapping("/editQuestion/{listId}/{questionId}")
     fun getRow(@PathVariable("questionId") questionId: String,
@@ -29,6 +29,18 @@ class QuestionController(
     fun editRow(@PathVariable("listId") listId: String,
                      question: Question): String{
         questionnaireService.saveEditQuestion(question)
+        return "redirect:/main/editList/${listId}"
+    }
+
+    @PostMapping("/addQuestion/{listId}")
+    fun addQuestion(@RequestParam("partId") partId: String,
+                    @PathVariable("listId") listId: String,
+                     question: Question): String{
+        var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
+        editPart?.questions?.add(questionnaireService.saveEditQuestion(question))
+        if (editPart != null) {
+            questionnaireService.saveEditPart(editPart)
+        }
         return "redirect:/main/editList/${listId}"
     }
 }

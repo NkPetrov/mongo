@@ -8,10 +8,10 @@ data class PartQuestionnaire(
         var parentId: String? = null,
 
         @field:DBRef
-        var children : List<PartQuestionnaire>? = null,
+        var children : MutableList<PartQuestionnaire>? = null,
 
         @field:DBRef
-        var questions: List<Question>? = null,
+        var questions: MutableList<Question>? = null,
 
         override var number: String? = null,
         override var name: String? = null

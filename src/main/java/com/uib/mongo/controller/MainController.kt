@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 @RequestMapping("/main")
@@ -29,19 +30,19 @@ class MainController(
 
     @GetMapping("/editList/{listId}")
     fun editList(@PathVariable("listId") listId: String,
-                 model: Model): String{
+                 model: Model): String {
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
         model.addAttribute("partsRecursive",
-                questionnaireService.getPartRecursiveList(
-                        questionnaireService.getListQuestionnaireByListId(listId)?.parts!!)
-        )
+                questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
+        model.addAttribute("newQuestion", Question())
+        model.addAttribute("newPart", PartQuestionnaire())
         return "editList"
     }
 
     @GetMapping("/editListName/{listId}")
     fun getListName(@PathVariable("listId") listId: String,
-                 model: Model): String{
+                    model: Model): String {
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
         return "editListName"
@@ -49,24 +50,24 @@ class MainController(
 
     @PostMapping("/editListName/{listId}")
     fun editListName(@PathVariable("listId") listId: String,
-                     list: ListQuestionnaire): String{
+                     list: ListQuestionnaire): String {
         questionnaireService.saveEditList(list)
         return "redirect:/main/editList/${list.listId}"
     }
 
     @GetMapping("/editInnerPart/{partId}/{listId}")
     fun getInnerPart(@PathVariable("partId") partId: String,
-                        @PathVariable("listId") listId: String,
-                 model: Model): String{
+                     @PathVariable("listId") listId: String,
+                     model: Model): String {
         model.addAttribute("part",
                 questionnaireService.getPartQuestionnaireByPartId(partId))
-        model.addAttribute("listId",listId)
+        model.addAttribute("listId", listId)
         return "editInnerPartName"
     }
 
     @PostMapping("/editInnerPart/{listId}")
     fun editInnerPart(@PathVariable("listId") listId: String,
-                     part: PartQuestionnaire): String{
+                      part: PartQuestionnaire): String {
         questionnaireService.saveEditPart(part)
         return "redirect:/main/editList/${listId}"
     }

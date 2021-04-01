@@ -27,7 +27,7 @@
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal2">
                 Add row
             </button>
-            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal3">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal1">
                 Add part
             </button>
         </div>
@@ -62,44 +62,44 @@
                     ></a>
                 </div>
             </div>
-                <ul th:case="'inner'">
-                    <li>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <h7 th:text="${part.name}" style="margin-bottom: 10px"></h7>
-                                </div>
-                                <div class="col-1 d-flex justify-content-end">
-                                    <a th:text="'[еdit]'"
-                                       th:href="@{'/main/editInnerPart/'+${part.partId}+'/'+${list.listId}}"
-                                    ></a>
-                                </div>
+            <ul th:case="'inner'">
+                <li>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h7 th:text="${part.name}" style="margin-bottom: 10px"></h7>
+                            </div>
+                            <div class="col-1 d-flex justify-content-end">
+                                <a th:text="'[еdit]'"
+                                   th:href="@{'/main/editInnerPart/'+${part.partId}+'/'+${list.listId}}"
+                                ></a>
                             </div>
                         </div>
-                        <ul class="list-group list-group-numbered" th:each="question: ${part.questions}">
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h10 th:text="${question.name}"></h10>
-                                        </div>
-                                        <div class="col-1 d-flex justify-content-end">
-                                            <a th:text="'[еdit]'"
-                                               th:href="@{'/question/editQuestion/'+${list.listId}+'/'+${question.questionId}}"
-                                            ></a>
-                                        </div>
+                    </div>
+                    <ul class="list-group list-group-numbered" th:each="question: ${part.questions}">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <h10 th:text="${question.name}"></h10>
+                                    </div>
+                                    <div class="col-1 d-flex justify-content-end">
+                                        <a th:text="'[еdit]'"
+                                           th:href="@{'/question/editQuestion/'+${list.listId}+'/'+${question.questionId}}"
+                                        ></a>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <!--                    <div th:include="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
-                    <!--                    <div th:insert="~{editList :: recurs}"></div>-->
-                </ul>
-                    <!--                    <div th:include="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
-                    <!--                    <div th:insert="~{editList :: recurs}"></div>-->
-                </ul>
-            </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!--                    <div th:include="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
+                <!--                    <div th:insert="~{editList :: recurs}"></div>-->
+            </ul>
+            <!--                    <div th:include="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
+            <!--                    <div th:insert="~{editList :: recurs}"></div>-->
+            </ul>
+        </div>
         </div>
     </tr>
 </table>
@@ -109,6 +109,127 @@
     <div class="row">
         <div class="col d-flex justify-content-center">
             <a href="" th:href="@{'/main'}" type="button" class="btn btn-primary" style="width: 20%">Main</a>
+        </div>
+    </div>
+</div>
+
+<!-- ModalRow -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">Creating question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" th:action="@{'/question/addQuestion/'+${listId}}" th:object="${newQuestion}"
+                      method="post">
+                    <div class="form-group">
+                        <label>Раздел</label>
+                        <select th:name="partId" class="form-control">
+                            <table>
+                                <tbody>
+                                <tr th:each="part: ${partsRecursive}">
+                                    <option th:value="${part.partId}">
+                                        <td th:text="${part.name}"></td>
+                                    </option>
+                                    <td th:text="${part.partId}" th:value="${part.partId}"
+                                        th:name="partId" class="form-control"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </select>
+                    </div>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>answers</label>
+                        <input th:field="*{answers}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>status</label>
+                        <input th:field="*{status}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>description</label>
+                        <input th:field="*{description}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>Question ID</label>
+                        <input th:field="*{questionId}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>number</label>
+                        <input th:field="*{number}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>List name</label>
+                        <input th:field="*{name}" class="form-control">
+                    </div>
+                    <input type="submit" value="Добавить" class="btn btn-primary btn-lg btn-block"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ModalPart -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Creating part</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" th:action="@{'/part/editPart/'+${listId}}" th:object="${newPart}"
+                      method="post">
+                    <div class="form-group">
+                        <label>Раздел</label>
+                        <select th:name="partPartId" class="form-control">
+                            <table>
+                                <tbody>
+                                <tr th:each="part: ${partsRecursive}">
+                                    <option th:value="${part.partId}">
+                                        <td th:text="${part.name}"></td>
+                                    </option>
+                                    <td th:text="${part.partId}" th:value="${part.partId}"
+                                        th:name="partPartId" class="form-control"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </select>
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>parentId</label>
+                        <input th:field="*{parentId}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>children</label>
+                        <input th:field="*{children}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>questions</label>
+                        <input th:field="*{questions}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>number</label>
+                        <input th:field="*{number}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Part name</label>
+                        <input th:field="*{name}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>PartId</label>
+                        <input th:field="*{partId}" class="form-control">
+                    </div>
+                    <input type="submit" value="Добавить" class="btn btn-primary btn-lg btn-block"/>
+                </form>
+            </div>
         </div>
     </div>
 </div>

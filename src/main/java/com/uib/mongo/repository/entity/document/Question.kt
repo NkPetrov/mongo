@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef
 
 data class Question(
         @field:DBRef
-        var answers: List<QuestionAnswers>? = null,
+        var answers: MutableList<QuestionAnswers>? = null,
 
         var status: String? = null,
         var description: String? = null,

@@ -10,7 +10,7 @@ data class Questionnaire(
         var name: String,
         var creator: String? = null,
         @DBRef
-        var lists: List<ListQuestionnaire>? = null
+        var lists: MutableList<ListQuestionnaire>? = null
 ): GenerateUUID {
         @field:Id
         var questionnaireId: String = generateUid()

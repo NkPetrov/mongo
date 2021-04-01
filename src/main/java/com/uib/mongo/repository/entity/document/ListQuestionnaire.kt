@@ -10,10 +10,10 @@ data class ListQuestionnaire(
         var listName: String,
 
         @field:DBRef
-        var parts: List<PartQuestionnaire>? = null,
+        var parts: MutableList<PartQuestionnaire>? = null,
 
         @field:DBRef
-        var domainSections: List<DomainQuestionnaire>? = null
+        var domainSections: MutableList<DomainQuestionnaire>? = null
 
 ): GenerateUUID {
     @field:Id
