@@ -31,6 +31,9 @@ class MainController(
     @GetMapping("/editList/{listId}")
     fun editList(@PathVariable("listId") listId: String,
                  model: Model): String {
+        //write number
+        questionnaireService.getNumberParentPart(listId)
+
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
         model.addAttribute("partsRecursive",

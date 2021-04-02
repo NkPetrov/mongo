@@ -55,31 +55,31 @@ class DatabaseChangelog {
 
         //add inner part
         var part0: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 1.1.1",parentId = "inner", children = null ,questions = question1, number = "1.1.1.1")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 1.1.1",parentId = "inner", children = null ,questions = question1, number = "")))
 
         //add inner part
         var part1: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 1.1",parentId = "inner", children = part0, questions = question2, number = "1.1.1")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 1.1",parentId = "inner", children = part0, questions = question2, number = "")))
 
         var part2: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 1",parentId = "inner", children = part1, questions = question3, number = "1.1")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 1",parentId = "inner", children = part1, questions = question3, number = "")))
 
         //add inner part
         var part_0: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 2.2.2",parentId = "inner", children = null ,questions = question1, number = "2.2.2.2")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 2.2.2",parentId = "inner", children = null ,questions = question1, number = "")))
 
         //add inner part
         var part_1: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 2.2",parentId = "inner", children = part_0, questions = question2, number = "2.2.2")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 2.2",parentId = "inner", children = part_0, questions = question2, number = "")))
 
         //add inner part
         var part_2: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 2",parentId = "inner", children = part_1, questions = question3, number = "2.2")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner 2",parentId = "inner", children = part_1, questions = question3, number = "")))
 
         //add external part
         var partList: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner1", children = part2, parentId = "list", number = "1")),
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner2", children = part_2, parentId = "list", number = "2")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner1", children = part2, parentId = "list", number = "")),
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "Inner2", children = part_2, parentId = "list", number = "")))
 
 
         //add lists

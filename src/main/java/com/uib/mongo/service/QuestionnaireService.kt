@@ -20,7 +20,7 @@ class QuestionnaireService(
         private val domainQuestionnaireRepo: DomainQuestionnaireRepository,
         private val partQuestionnaireRepo: PartQuestionnaireRepository,
         private val questionRepo: QuestionRepository
-        ) {
+) {
     fun getQuestionnaireByUser(user: User?): List<Questionnaire>? = questionnaireRepo.findByCreator(user?.username)
 
     fun getListQuestionnaireByListId(listId: String): ListQuestionnaire? =
@@ -48,11 +48,11 @@ class QuestionnaireService(
     fun saveEditDomain(domain: DomainQuestionnaire) = domainQuestionnaireRepo.save(domain)
 
     fun getPartRecursiveList(parts: List<PartQuestionnaire>): List<PartQuestionnaire>? {
-        if (parts != null){
+        if (parts != null) {
             return parts.flatMap { getPartRecursive(it) }
                     .toList()
                     .sortedBy { it.number }
-        }else return null
+        } else return null
     }
 
 //    fun getPartRecursiveList(parts: List<PartQuestionnaire>?): List<PartQuestionnaire>? {
@@ -68,10 +68,35 @@ class QuestionnaireService(
 ////    }
 
     fun getPartRecursive(part: PartQuestionnaire): List<PartQuestionnaire> {
-        return if (part.children != null)  {
+        return if (part.children != null) {
             listOf(part) + part.children!!.flatMap { getPartRecursive(it) }
         } else {
             listOf(part)
+        }
+    }
+
+    fun getNumberPart(parts: MutableList<PartQuestionnaire>?) {
+        if (parts != null) {
+            for (part: PartQuestionnaire in parts) {
+                if (part.number == "" && part.children != null) {
+                    part.number + .1
+                    saveEditPart(part)
+                    getNumberPart(part.children)
+                }
+                saveEditPart(part)
+            }
+        }
+    }
+
+    fun getNumberParentPart(listId: String) {
+        var partsList = listQuestionnaireRepo.findByListId(listId)?.parts
+        if (partsList != null) {
+            for (partList: PartQuestionnaire in partsList) {
+                partList.number += 1
+                var parts = partList.children
+                getNumberPart(parts)
+                saveEditPart(partList)
+            }
         }
     }
 }
