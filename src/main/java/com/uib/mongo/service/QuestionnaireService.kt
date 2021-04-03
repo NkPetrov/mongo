@@ -15,25 +15,25 @@ import org.springframework.stereotype.Service
 
 @Service
 class QuestionnaireService(
-        private val questionnaireRepo: QuestionnaireRepository,
-        private val listQuestionnaireRepo: ListQuestionnaireRepository,
-        private val domainQuestionnaireRepo: DomainQuestionnaireRepository,
-        private val partQuestionnaireRepo: PartQuestionnaireRepository,
-        private val questionRepo: QuestionRepository
+    private val questionnaireRepo: QuestionnaireRepository,
+    private val listQuestionnaireRepo: ListQuestionnaireRepository,
+    private val domainQuestionnaireRepo: DomainQuestionnaireRepository,
+    private val partQuestionnaireRepo: PartQuestionnaireRepository,
+    private val questionRepo: QuestionRepository
 ) {
     fun getQuestionnaireByUser(user: User?): List<Questionnaire>? = questionnaireRepo.findByCreator(user?.username)
 
     fun getListQuestionnaireByListId(listId: String): ListQuestionnaire? =
-            listQuestionnaireRepo.findByListId(listId)
+        listQuestionnaireRepo.findByListId(listId)
 
 //    fun getPartListQuestionnaireByPartListId(partListId: String): PartListQuestionnaire? =
 //            partListQuestionnaireRepo.findByPartListId(partListId)
 
     fun getPartQuestionnaireByPartId(partId: String): PartQuestionnaire? =
-            partQuestionnaireRepo.findByPartId(partId)
+        partQuestionnaireRepo.findByPartId(partId)
 
     fun getQuestionByQuestionId(questionId: String): Question? =
-            questionRepo.findByQuestionId(questionId)
+        questionRepo.findByQuestionId(questionId)
 
     fun getDomainById(domainId: String): DomainQuestionnaire? = domainQuestionnaireRepo.findByDomainId(domainId)
 
@@ -50,8 +50,8 @@ class QuestionnaireService(
     fun getPartRecursiveList(parts: List<PartQuestionnaire>): List<PartQuestionnaire>? {
         if (parts != null) {
             return parts.flatMap { getPartRecursive(it) }
-                    .toList()
-                    .sortedBy { it.number }
+                .toList()
+                .sortedBy { it.number }
         } else return null
     }
 
@@ -77,10 +77,11 @@ class QuestionnaireService(
 
     fun getNumberPart(parts: MutableList<PartQuestionnaire>?) {
         if (parts != null) {
+            getNumberParentPart(parts)
             for (part: PartQuestionnaire in parts) {
-                if (part.number == "" && part.children != null) {
-                    part.number + .1
-                    saveEditPart(part)
+                if (part.children != null) {
+                    getNumberParentPart(part.children)
+                    part.number += part.number.plus(".1")
                     getNumberPart(part.children)
                 }
                 saveEditPart(part)
@@ -88,15 +89,10 @@ class QuestionnaireService(
         }
     }
 
-    fun getNumberParentPart(listId: String) {
-        var partsList = listQuestionnaireRepo.findByListId(listId)?.parts
-        if (partsList != null) {
-            for (partList: PartQuestionnaire in partsList) {
-                partList.number += 1
-                var parts = partList.children
-                getNumberPart(parts)
-                saveEditPart(partList)
-            }
+    fun getNumberParentPart(parts: MutableList<PartQuestionnaire>?) {
+            parts?.forEachIndexed { index, element ->
+                element.number += index.plus(1).toString()
+                saveEditPart(element)
         }
     }
 }

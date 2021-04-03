@@ -1,7 +1,6 @@
 package com.uib.mongo.controller
 
 import com.uib.mongo.repository.entity.document.Question
-import com.uib.mongo.service.CustomUserDetailsService
 import com.uib.mongo.service.QuestionnaireService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,26 +15,35 @@ import org.springframework.web.bind.annotation.RequestParam
 class QuestionController(
         private val questionnaireService: QuestionnaireService
 ) {
-    @GetMapping("/editQuestion/{listId}/{questionId}")
-    fun getRow(@PathVariable("questionId") questionId: String,
-                        @PathVariable("listId") listId: String,
-                 model: Model): String{
+    @GetMapping("/editQuestion/{listId}/{partId}/{questionId}")
+    fun getRow(@PathVariable("partId") partId: String,
+               @PathVariable("questionId") questionId: String,
+               @PathVariable("listId") listId: String,
+               model: Model): String {
         model.addAttribute("question",
                 questionnaireService.getQuestionByQuestionId(questionId))
+        model.addAttribute("partsRecursive",
+                questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
+        model.addAttribute("partQuestion" ,questionnaireService.getPartQuestionnaireByPartId(partId))
         return "editQuestion"
     }
 
     @PostMapping("/editQuestion/{listId}")
-    fun editRow(@PathVariable("listId") listId: String,
-                     question: Question): String{
-        questionnaireService.saveEditQuestion(question)
+    fun editRow(@RequestParam("partId") partId: String,
+                @PathVariable("listId") listId: String,
+                question: Question): String {
+        var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
+        editPart?.questions?.add(questionnaireService.saveEditQuestion(question))
+        if (editPart != null) {
+            questionnaireService.saveEditPart(editPart)
+        }
         return "redirect:/main/editList/${listId}"
     }
 
     @PostMapping("/addQuestion/{listId}")
     fun addQuestion(@RequestParam("partId") partId: String,
                     @PathVariable("listId") listId: String,
-                     question: Question): String{
+                    question: Question): String {
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
         editPart?.questions?.add(questionnaireService.saveEditQuestion(question))
         if (editPart != null) {

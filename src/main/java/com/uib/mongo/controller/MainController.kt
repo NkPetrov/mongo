@@ -32,7 +32,7 @@ class MainController(
     fun editList(@PathVariable("listId") listId: String,
                  model: Model): String {
         //write number
-        questionnaireService.getNumberParentPart(listId)
+        questionnaireService.getNumberPart(questionnaireService.getListQuestionnaireByListId(listId)?.parts)
 
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))

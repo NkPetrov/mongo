@@ -5,6 +5,7 @@ import com.github.cloudyrock.mongock.ChangeSet
 import com.uib.mongo.repository.DomainQuestionnaireRepository
 import com.uib.mongo.repository.ListQuestionnaireRepository
 import com.uib.mongo.repository.PartQuestionnaireRepository
+import com.uib.mongo.repository.QuestionAnswersRepository
 import com.uib.mongo.repository.QuestionRepository
 import com.uib.mongo.repository.QuestionnaireRepository
 import com.uib.mongo.repository.UserRepository
@@ -12,6 +13,7 @@ import com.uib.mongo.repository.entity.document.DomainQuestionnaire
 import com.uib.mongo.repository.entity.document.ListQuestionnaire
 import com.uib.mongo.repository.entity.document.PartQuestionnaire
 import com.uib.mongo.repository.entity.document.Question
+import com.uib.mongo.repository.entity.document.QuestionAnswers
 import com.uib.mongo.repository.entity.document.Questionnaire
 import com.uib.mongo.repository.entity.user.User
 
@@ -27,6 +29,7 @@ class DatabaseChangelog {
                          listQuestionnaireRepo: ListQuestionnaireRepository,
                          partQuestionnaireRepo: PartQuestionnaireRepository,
                          questionRepo: QuestionRepository,
+                         questionAnswersRepo: QuestionAnswersRepository,
                          domainQuestionnaireRepo: DomainQuestionnaireRepository,
                          ) {
 
@@ -35,23 +38,30 @@ class DatabaseChangelog {
                 domainQuestionnaireRepo.insert(DomainQuestionnaire(nameDomainSection = "Inner Users")),
                 domainQuestionnaireRepo.insert(DomainQuestionnaire(nameDomainSection = "External Users")))
 
+        //add answers of questions
+
+        var answers: MutableList<QuestionAnswers> = mutableListOf(
+                questionAnswersRepo.save(QuestionAnswers("Answer 1")),
+                questionAnswersRepo.save(QuestionAnswers("Answer 2")),
+                questionAnswersRepo.save(QuestionAnswers("Answer 3")))
+
         //add questions
         var question1: MutableList<Question> = mutableListOf(
-                questionRepo.insert(Question(name = "Question 1")),
-                questionRepo.insert(Question(name = "Question 2")),
-                questionRepo.insert(Question(name = "Question 3")))
+                questionRepo.insert(Question(name = "Question 1", answers = answers)),
+                questionRepo.insert(Question(name = "Question 2", answers = answers)),
+                questionRepo.insert(Question(name = "Question 3", answers = answers)))
 
         //add questions
         var question2: MutableList<Question> = mutableListOf(
-                questionRepo.insert(Question(name = "Question 4")),
-                questionRepo.insert(Question(name = "Question 5")),
-                questionRepo.insert(Question(name = "Question 6")))
+                questionRepo.insert(Question(name = "Question 4", answers = answers)),
+                questionRepo.insert(Question(name = "Question 5", answers = answers)),
+                questionRepo.insert(Question(name = "Question 6", answers = answers)))
 
         //add questions
         var question3: MutableList<Question> = mutableListOf(
-                questionRepo.insert(Question(name = "Question 7")),
-                questionRepo.insert(Question(name = "Question 8")),
-                questionRepo.insert(Question(name = "Question 9")))
+                questionRepo.insert(Question(name = "Question 7", answers = answers)),
+                questionRepo.insert(Question(name = "Question 8", answers = answers)),
+                questionRepo.insert(Question(name = "Question 9", answers = answers)))
 
         //add inner part
         var part0: MutableList<PartQuestionnaire> = mutableListOf(
