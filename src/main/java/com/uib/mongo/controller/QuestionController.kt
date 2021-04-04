@@ -24,7 +24,7 @@ class QuestionController(
                 questionnaireService.getQuestionByQuestionId(questionId))
         model.addAttribute("partsRecursive",
                 questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
-        model.addAttribute("partQuestion" ,questionnaireService.getPartQuestionnaireByPartId(partId))
+        model.addAttribute("partQuestion", questionnaireService.getPartQuestionnaireByPartId(partId))
         return "editQuestion"
     }
 
@@ -33,10 +33,18 @@ class QuestionController(
                 @PathVariable("listId") listId: String,
                 question: Question): String {
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
-        editPart?.questions?.add(questionnaireService.saveEditQuestion(question))
-        if (editPart != null) {
-            questionnaireService.saveEditPart(editPart)
+        var editQuestion = questionnaireService.getQuestionByQuestionId(question.questionId)
+        if (editQuestion != null) {
+            if (editQuestion in editPart?.questions!!) {
+
+            }else{
+                editPart.questions?.add(questionnaireService.saveEditQuestion(question))
+                questionnaireService.saveEditPart(editPart)
+            }
+        }else{
+            questionnaireService.saveEditQuestion(question)
         }
+
         return "redirect:/main/editList/${listId}"
     }
 

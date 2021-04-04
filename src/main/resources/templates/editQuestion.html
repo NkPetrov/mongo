@@ -40,12 +40,12 @@
                 <form th:action="@{'/question/editQuestion/'+${listId}}" th:object="${question}" method="post">
                     <div class="form-group">
                         <label>Раздел</label>
-                        <select th:name="'partPartId'" th:placeholder="'text'" class="form-control">
-                            <option th:text="${partQuestion.name}" selected disabled hidden></option>
+                        <select th:name="'partId'" th:placeholder="'text'" class="form-control">
+                            <option th:text="${partQuestion.name}" th:value="${partQuestion.partId}" th:name="'partId'"></option>
                             <table>
                                 <tbody>
                                 <tr th:each="part: ${partsRecursive}">
-                                    <option th:value="${part.partId}" th:text="${part.name}">
+                                    <option th:value="${part.partId}" th:text="${part.name}" th:name="'partId'">
                                     </option>
                                 </tr>
                                 </tbody>
@@ -99,6 +99,13 @@
                             </div>
                         </li>
                     </ul>
+                    <div class="row">
+                        <div class="col-11 d-flex justify-content-end" style="margin-top: 2%">
+                            <a th:text="'[add]'"
+                               th:href="@{'/question/editQuestion/'+${question.questionId}}"
+                            ></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
