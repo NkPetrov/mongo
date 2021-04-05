@@ -41,9 +41,9 @@ class DatabaseChangelog {
         //add answers of questions
 
         var answers: MutableList<QuestionAnswers> = mutableListOf(
-                questionAnswersRepo.save(QuestionAnswers("Answer 1")),
-                questionAnswersRepo.save(QuestionAnswers("Answer 2")),
-                questionAnswersRepo.save(QuestionAnswers("Answer 3")))
+                questionAnswersRepo.save(QuestionAnswers(answer = "Answer 1")),
+                questionAnswersRepo.save(QuestionAnswers(answer = "Answer 2")),
+                questionAnswersRepo.save(QuestionAnswers(answer = "Answer 3")))
 
         //add questions
         var question1: MutableList<Question> = mutableListOf(

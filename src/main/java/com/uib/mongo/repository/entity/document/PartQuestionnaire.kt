@@ -1,13 +1,10 @@
 package com.uib.mongo.repository.entity.document
 
 import com.uib.mongo.repository.entity.document.UUID.GenerateUUID
-import lombok.Value
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 
-@Value
 data class PartQuestionnaire(
-
         var parentId: String? = null,
 
         @field:DBRef

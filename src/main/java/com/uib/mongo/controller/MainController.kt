@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 @RequestMapping("/main")
@@ -32,7 +31,7 @@ class MainController(
     fun editList(@PathVariable("listId") listId: String,
                  model: Model): String {
         //write number
-        questionnaireService.getNumberPart(questionnaireService.getListQuestionnaireByListId(listId)?.parts)
+        //questionnaireService.getNumberPart(questionnaireService.getListQuestionnaireByListId(listId)?.parts)
 
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
