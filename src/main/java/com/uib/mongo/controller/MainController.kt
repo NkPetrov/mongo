@@ -35,8 +35,10 @@ class MainController(
 
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
-        model.addAttribute("partsRecursive",
-                questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
+//        model.addAttribute("partsRecursive",
+//                questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
+
+        model.addAttribute("partsRecursive",questionnaireService.getListQuestionnaireByListId(listId)?.parts!!)
         model.addAttribute("newQuestion", Question())
         model.addAttribute("newPart", PartQuestionnaire())
         return "editList"
