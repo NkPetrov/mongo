@@ -186,11 +186,60 @@
                                class="btn btn-dark" style="margin-top: 1%;"></a>
                         </div>
                     </div>
+                    <div class="row" style="bottom:5%">
+                        <div class="col d-flex justify-content-start" th:hidden="${true}">
+                            <a th:text="${''}"
+                               th:href="@{'/main/''/viewlist/'}"
+                               th:hidden="${true}"
+                               class="btn btn-light" style="margin-top: 1%"></a>
+                        </div>
+                        <div class="col-1">
+                            <button th:text="Add"  style="margin-top: 1%;" type="button" class="btn btn-outline-secondary"
+                                    data-toggle="modal" data-target="#exampleModal3"></button>
+
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- Modal3 -->
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">1
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel3">Creating list</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" th:action="@{'/list/addList/'+${questionnaires.questionnaireId}}" method="post" th:object="${newList}">
+                                <div class="form-group">
+                                    <label>Название листа</label>
+                                    <input th:field="*{listName}" class="form-control" rows="1">
+                                </div>
+                                <div class="form-group" th:hidden="${true}">
+                                    <label>listId</label>
+                                    <input th:field="*{listId}" class="form-control" rows="1">
+                                </div>
+                                <div class="form-group" th:hidden="${true}">
+                                    <label>parts</label>
+                                    <input th:field="*{parts}" class="form-control" rows="1">
+                                </div>
+                                <div class="form-group" th:hidden="${true}">
+                                    <label>domainSections</label>
+                                    <input th:field="*{domainSections}" class="form-control" rows="1">
+                                </div>
+                                <input type="submit" value="Добавить" class="btn btn-primary btn-lg btn-block"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal3 -->
         </div>
     </div>
 </div>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -23,6 +23,7 @@ class MainController(
     @GetMapping
     fun getStartingPage(model: Model): String {
         model.addAttribute("newQuestionnaire", Questionnaire(name = "default"))
+        model.addAttribute("newList", ListQuestionnaire(listName = ""))
         model.addAttribute("questionnaire", questionnaireService.getQuestionnaireByUser(customUserDetailsService.getCurrentUser()))
         return "main"
     }
@@ -35,9 +36,8 @@ class MainController(
 
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
-//        model.addAttribute("partsRecursive",
-//                questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
-
+        model.addAttribute("partsList",
+                questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
         model.addAttribute("partsRecursive",questionnaireService.getListQuestionnaireByListId(listId)?.parts!!)
         model.addAttribute("newQuestion", Question())
         model.addAttribute("newPart", PartQuestionnaire())

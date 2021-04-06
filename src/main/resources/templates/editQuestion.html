@@ -41,7 +41,8 @@
                     <div class="form-group">
                         <label>Раздел</label>
                         <select th:name="'partId'" th:placeholder="'text'" class="form-control">
-                            <option th:text="${partQuestion.name}" th:value="${partQuestion.partId}" th:name="'partId'"></option>
+                            <option th:text="${partQuestion.name}" th:value="${partQuestion.partId}"
+                                    th:name="'partId'"></option>
                             <table>
                                 <tbody>
                                 <tr th:each="part: ${partsRecursive}">
@@ -62,7 +63,7 @@
                     </div>
                     <div class="form-group" th:hidden="${false}">
                         <label>answers</label>
-                        <input th:field="*{answers}" class="form-control"></input>
+                        <input th:field="*{answers}" class="form-control"/>
                     </div>
                     <div class="form-group" th:hidden="${false}">
                         <label>number</label>

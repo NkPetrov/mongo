@@ -50,51 +50,10 @@
 </div>
 <table class="table table-bordered">
     <thead class="table table-striped"></thead>
-    <tr scope="row" th:each="part: ${partsRecursive}">
-        <div class="container">
-            <ul>
-                <li>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <h7 th:text="${part.name}" style="margin-bottom: 10px"></h7>
-                            </div>
-                            <div class="col-1 d-flex justify-content-end">
-                                <a th:text="'[еdit]'"
-                                   th:href="@{'/main/editInnerPart/'+${part.partId}+'/'+${list.listId}}"
-                                ></a>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-numbered" th:each="question: ${part.questions}">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col">
-                                        <h10 th:text="${question.name}"></h10>
-                                    </div>
-                                    <div class="col-1 d-flex justify-content-end">
-                                        <a th:text="'[еdit]'"
-                                           th:href="@{'/question/editQuestion/'+${list.listId}+'/'+${part.partId}+'/'+${question.questionId}}"
-                                        ></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <!--                    <div th:insert="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
-                </li>
-            </ul>
-            <!--                    <div th:include="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>-->
-            <!--                    <div th:insert="~{editList :: recurs}"></div>-->
-            </ul>
-        </div>
-        </div>
-    </tr>
     <!--Recurs-->
     <tr scope="row" th:each="part: ${partsRecursive}" th:fragment="recurs">
         <div class="container">
-            <ul th:case="${part.parentId}">
+            <ul>
                 <li>
                     <div class="container">
                         <div class="row">
@@ -159,7 +118,7 @@
                         <select th:name="partId" class="form-control">
                             <table>
                                 <tbody>
-                                <tr th:each="part: ${partsRecursive}">
+                                <tr th:each="part: ${partsList}">
                                     <option th:value="${part.partId}">
                                         <td th:text="${part.name}"></td>
                                     </option>
@@ -213,14 +172,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" th:action="@{'/part/editPart/'+${listId}}" th:object="${newPart}"
+                <form action="#" th:action="@{'/part/addPart/'+${listId}}" th:object="${newPart}"
                       method="post">
                     <div class="form-group">
                         <label>Раздел</label>
                         <select th:name="partPartId" class="form-control">
                             <table>
                                 <tbody>
-                                <tr th:each="part: ${partsRecursive}">
+                                <tr th:each="part: ${partsList}">
                                     <option th:value="${part.partId}">
                                         <td th:text="${part.name}"></td>
                                     </option>
@@ -249,7 +208,7 @@
                     </div>
                     <div class="form-group">
                         <label>Part name</label>
-                        <input th:field="*{name}" class="form-control">
+                        <textarea th:field="*{name}" class="form-control"></textarea>
                     </div>
                     <div class="form-group" th:hidden="${false}">
                         <label>PartId</label>

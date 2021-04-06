@@ -22,6 +22,7 @@ class QuestionnaireService(
     private val questionRepo: QuestionRepository
 ) {
     fun getQuestionnaireByUser(user: User?): List<Questionnaire>? = questionnaireRepo.findByCreator(user?.username)
+    fun getQuestionnaireByQuestionnaireId(questionnaireId: String?): Questionnaire? = questionnaireRepo.findByQuestionnaireId(questionnaireId)
 
     fun getListQuestionnaireByListId(listId: String): ListQuestionnaire? =
         listQuestionnaireRepo.findByListId(listId)
@@ -38,6 +39,8 @@ class QuestionnaireService(
     fun getDomainById(domainId: String): DomainQuestionnaire? = domainQuestionnaireRepo.findByDomainId(domainId)
 
     fun saveEditList(list: ListQuestionnaire) = listQuestionnaireRepo.save(list)
+
+    fun saveEditQuestionnaire(questionnaire: Questionnaire) = questionnaireRepo.save(questionnaire)
 
 //    fun saveEditPartList(part: PartListQuestionnaire) = partListQuestionnaireRepo.save(part)
 

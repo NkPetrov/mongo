@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam
 class PartController(
         private val questionnaireService: QuestionnaireService
 ) {
-    @PostMapping("/editPart/{listId}")
+    @PostMapping("/addPart/{listId}")
     fun editList(@RequestParam("partPartId") partPartId: String,
                  @PathVariable("listId") listId: String,
                  part: PartQuestionnaire): String {

@@ -34,6 +34,7 @@ class QuestionController(
                 question: Question): String {
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
         var editQuestion = questionnaireService.getQuestionByQuestionId(question.questionId!!)
+        
         if (editQuestion != null) {
             if (!editPart?.questions!!.contains(editQuestion)) {
                 editPart?.questions?.add(questionnaireService.saveEditQuestion(question))
