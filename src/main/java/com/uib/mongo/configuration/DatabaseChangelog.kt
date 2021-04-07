@@ -13,7 +13,7 @@ import com.uib.mongo.repository.entity.document.DomainQuestionnaire
 import com.uib.mongo.repository.entity.document.ListQuestionnaire
 import com.uib.mongo.repository.entity.document.PartQuestionnaire
 import com.uib.mongo.repository.entity.document.Question
-import com.uib.mongo.repository.entity.document.QuestionAnswers
+import com.uib.mongo.repository.entity.document.QuestionAnswer
 import com.uib.mongo.repository.entity.document.Questionnaire
 import com.uib.mongo.repository.entity.user.User
 
@@ -40,10 +40,10 @@ class DatabaseChangelog {
 
         //add answers of questions
 
-        var answers: MutableList<QuestionAnswers> = mutableListOf(
-                questionAnswersRepo.save(QuestionAnswers(answer = "Answer 1")),
-                questionAnswersRepo.save(QuestionAnswers(answer = "Answer 2")),
-                questionAnswersRepo.save(QuestionAnswers(answer = "Answer 3")))
+        var answers: MutableList<QuestionAnswer> = mutableListOf(
+                questionAnswersRepo.save(QuestionAnswer(answer = "Answer 1")),
+                questionAnswersRepo.save(QuestionAnswer(answer = "Answer 2")),
+                questionAnswersRepo.save(QuestionAnswer(answer = "Answer 3")))
 
         //add questions
         var question1: MutableList<Question> = mutableListOf(

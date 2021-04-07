@@ -1,6 +1,7 @@
 package com.uib.mongo.controller
 
 import com.uib.mongo.repository.entity.document.Question
+import com.uib.mongo.repository.entity.document.QuestionAnswer
 import com.uib.mongo.service.QuestionnaireService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -15,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam
 class QuestionController(
         private val questionnaireService: QuestionnaireService
 ) {
-    @GetMapping("/editQuestion/{listId}/{partId}/{questionId}")
-    fun getRow(@PathVariable("partId") partId: String,
-               @PathVariable("questionId") questionId: String,
-               @PathVariable("listId") listId: String,
+    @GetMapping("/editQuestion/{listId}")
+    fun getRow(@PathVariable("listId") listId: String,
+               @RequestParam("questionId") questionId: String,
+               @RequestParam("partId") partId: String,
                model: Model): String {
+
         model.addAttribute("question",
                 questionnaireService.getQuestionByQuestionId(questionId))
+        model.addAttribute("newAnswer", QuestionAnswer(answer = ""))
         model.addAttribute("partsRecursive",
                 questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
         model.addAttribute("partQuestion", questionnaireService.getPartQuestionnaireByPartId(partId))
@@ -34,7 +37,7 @@ class QuestionController(
                 question: Question): String {
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
         var editQuestion = questionnaireService.getQuestionByQuestionId(question.questionId!!)
-        
+
         if (editQuestion != null) {
             if (!editPart?.questions!!.contains(editQuestion)) {
                 editPart?.questions?.add(questionnaireService.saveEditQuestion(question))

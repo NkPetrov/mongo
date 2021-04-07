@@ -29,44 +29,62 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col d-flex justify-content-center">
-        <h3>Edit list name</h3>
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <h3>Edit list name</h3>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col d-flex justify-content-center">
-        <div class="card-body">
-            <form th:action="@{'/main/editInnerPart/'+${listId}}" th:object="${part}" method="post">
-                <div class="form-group" th:hidden="${false}">
-                    <label>parentId</label>
-                    <input th:field="*{parentId}" class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${false}">
-                    <label>children</label>
-                    <input th:field="*{children}" class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${false}">
-                    <label>questions</label>
-                    <input th:field="*{questions}" class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${false}">
-                    <label>number</label>
-                    <input th:field="*{number}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>List name</label>
-                    <input th:field="*{name}" class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${false}">
-                    <label>PartId</label>
-                    <input th:field="*{partId}" class="form-control">
-                </div>
-                <input type="submit" value="Обновить" class="btn btn-primary btn-lg btn-block"/>
-            </form>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <div class="card-body">
+                <form th:action="@{'/main/editInnerPart/'+${listId}}" th:object="${part}" method="post">
+                    <div class="form-group" th:hidden="${false}">
+                        <label>parentId</label>
+                        <input th:field="*{parentId}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>children</label>
+                        <input th:field="*{children}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>questions</label>
+                        <input th:field="*{questions}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>number</label>
+                        <input th:field="*{number}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>List name</label>
+                        <input th:field="*{name}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>PartId</label>
+                        <input th:field="*{partId}" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-2">
+                            <input type="submit" th:value="'Сохранить'" class="btn btn-primary btn-block"/>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            <a th:text="${'Удалить'}"
+                               th:href="@{'/part/deletePart/'+${listId}+'/'+${part.partId}}"
+                               class="btn btn-outline-danger" style="margin-top: 1%"></a>
+                        </div>
+                        <div class="col-1.5">
+                            <form th:action="@{'/main/editList/'+${listId}}" method="post" class="d-flex justify-content-center">
+                                <input type="submit" th:value="${'Отмена'}" class="btn btn-outline-danger"/>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

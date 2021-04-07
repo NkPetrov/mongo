@@ -89,12 +89,20 @@
                                         <h10 th:text="${answer.answer}"></h10>
                                     </div>
                                     <div class="col-1 d-flex justify-content-end">
-                                        <a th:text="'[еdit]'"
-                                           th:href="@{'/question/editQuestion/'+${answer.questionAnswerId}+'/'+${question.questionId}}"
-                                        ></a>
-                                        <a th:text="'[delete]'"
-                                           th:href="@{'/question/editQuestion/'+${answer.questionAnswerId}+'/'+${question.questionId}}"
-                                        ></a>
+                                        <form th:action="@{'/answer/editAnswer/'+${listId}}" type="button"
+                                              th:method="get" class="d-flex justify-content-start">
+                                            <div th:hidden="${true}">
+                                                <input th:name="answerId" th:value="${answer.answerId}">
+                                            </div>
+                                            <input type="submit" th:value="${'[edit]'}" class="btn btn-outline-secondary">
+                                        </form>
+                                        <form th:action="@{'/answer/deleteAnswer/'+${listId}}" type="button"
+                                              th:method="post" class="d-flex justify-content-start">
+                                            <div th:hidden="${true}">
+                                                <input th:name="answerId" th:value="${answer.answerId}">
+                                            </div>
+                                            <input type="submit" th:value="${'[delete]'}" class="btn btn-outline-secondary">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +111,7 @@
                     <div class="row">
                         <div class="col-11 d-flex justify-content-end" style="margin-top: 2%">
                             <a th:text="'[add]'"
-                               th:href="@{'/question/editQuestion/'+${question.questionId}}"
+                            type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal1"
                             ></a>
                         </div>
                     </div>
@@ -113,6 +121,35 @@
     </div>
 </div>
 
+<!-- ModalAnswer -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Creating question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{'/answer/addAnswer/'+${question.questionId}}" th:object="${newAnswer}" method="post">
+                    <div class="form-group" th:hidden="${false}">
+                        <label>number</label>
+                        <input th:field="*{answerId}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>Answer</label>
+                        <input th:field="*{answer}" class="form-control">
+                    </div>
+                    <div th:hidden="${true}">
+                        <input th:name="listId" th:value="${listId}">
+                    </div>
+                    <input type="submit" value="Добавить" class="btn btn-primary btn-lg btn-block"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

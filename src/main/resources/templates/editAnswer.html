@@ -28,38 +28,27 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col d-flex justify-content-center">
-        <h3>Edit list name</h3>
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <h3>Edit answer name</h3>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col d-flex justify-content-center">
-        <div class="card-body">
-            <form th:action="@{'/main/editListName/'+${list.listId}}" th:object="${list}" method="post">
-                <div class="form-group">
-                    <label>List name</label>
-                    <input th:field="*{listName}"
-                              class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${true}">
-                    <label>Абзацы</label>
-                    <input th:field="*{parts}" class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${true}">
-                    <label>ListId</label>
-                    <input th:field="*{listId}" class="form-control">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="submit" value="Обновить" class="btn btn-primary btn-lg btn-block"/>
-                        <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
-                            <input type="submit" th:value="${'delete'}" class="btn btn-outline-danger"/>
-                        </form>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <div class="card-body">
+                <form th:action="@{'/answer/editAnswer/'+${listId}}" th:object="${answer}" method="post">
+                    <div class="form-group" th:hidden="${false}">
+                        <label>Name</label>
+                        <input th:field="*{answer}" class="form-control">
                     </div>
-                </div>
-            </form>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>Id</label>
+                        <input th:field="*{answerId}" class="form-control">
+                    </div>
+                    <input type="submit" value="Обновить" class="btn btn-primary btn-lg btn-block"/>
+                </form>
+            </div>
         </div>
     </div>
 </div>

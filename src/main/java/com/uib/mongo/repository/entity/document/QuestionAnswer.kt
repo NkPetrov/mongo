@@ -5,9 +5,9 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("questionAnswers")
-data class QuestionAnswers(
+data class QuestionAnswer(
         var answer: String
 ): GenerateUUID {
     @field:Id
-    var questionAnswerId: String = generateUid()
+    var answerId: String = generateUid()
 }
