@@ -49,7 +49,7 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 .defaultSuccessUrl("/main")
                 .and().logout()
                 .logoutRequestMatcher(AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
+                .logoutSuccessUrl("/main").and().exceptionHandling()
     }
 
     override fun configure(web: WebSecurity) {

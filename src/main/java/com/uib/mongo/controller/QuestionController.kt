@@ -60,4 +60,11 @@ class QuestionController(
         }
         return "redirect:/main/editList/${listId}"
     }
+
+    @GetMapping("/deleteQuestion/{listId}/{questionId}")
+    fun deleteQuestion(@PathVariable("questionId") questionId: String,
+                       @PathVariable("listId") listId: String): String {
+        questionnaireService.deleteQuestion(questionId)
+        return "redirect:/main/editList/${listId}"
+    }
 }

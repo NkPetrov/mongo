@@ -54,6 +54,8 @@ class QuestionnaireService(
 
     fun saveEditAnswer(answer: QuestionAnswer) = answersRepo.save(answer)
 
+    fun deleteQuestion(questionId: String) = questionRepo.deleteById(questionId)
+
     fun deletePart(partId: String) = partQuestionnaireRepo.deleteById(partId)
 
     fun deleteAnswer(answerId: String) = answersRepo.deleteById(answerId)

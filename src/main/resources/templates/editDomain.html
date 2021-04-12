@@ -39,7 +39,7 @@
         <div class="card-body">
             <form th:action="@{'/domain/editDomain/'+${listId}+'/'+${domainId}}" th:object="${domain}" method="post">
                 <div class="form-group">
-                    <label>Domain name</label>
+                    <label>Доменная область</label>
                     <input th:field="*{nameDomainSection}"
                               class="form-control">
                 </div>

@@ -15,7 +15,7 @@ class PartController(
         private val questionnaireService: QuestionnaireService
 ) {
     @PostMapping("/addPart/{listId}")
-    fun editPart(@RequestParam("partPartId") partPartId: String,
+    fun editPart(@RequestParam("partId") partPartId: String,
                  @PathVariable("listId") listId: String,
                  part: PartQuestionnaire): String {
         var parentPart = questionnaireService.getPartQuestionnaireByPartId(partPartId)
@@ -27,7 +27,7 @@ class PartController(
     }
 
     @GetMapping("/deletePart/{listId}/{partId}")
-    fun deleteList(@PathVariable("partId") partId: String,
+    fun deletePart(@PathVariable("partId") partId: String,
                    @PathVariable("listId") listId: String
     ): String {
         questionnaireService.deletePart(partId)

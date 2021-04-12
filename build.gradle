@@ -26,12 +26,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	compileOnly 'org.projectlombok:lombok'
 	implementation group: 'com.github.cloudyrock.mongock', name: 'mongock-spring-v5', version: '4.3.7'
 	implementation group: 'com.github.cloudyrock.mongock', name: 'mongock-core-bom', version: '4.3.7', ext: 'pom'
 	implementation group: 'com.github.cloudyrock.mongock', name: 'mongodb-springdata-v3-driver', version: '4.3.7'
-	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
