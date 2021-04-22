@@ -2,6 +2,7 @@ package com.uib.mongo.controller
 
 import com.uib.mongo.repository.entity.document.Question
 import com.uib.mongo.repository.entity.document.QuestionAnswer
+import com.uib.mongo.repository.entity.document.Questionnaire
 import com.uib.mongo.service.QuestionnaireService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -14,27 +15,34 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 @RequestMapping("/question")
 class QuestionController(
-        private val questionnaireService: QuestionnaireService
+    private val questionnaireService: QuestionnaireService
 ) {
     @GetMapping("/editQuestion/{listId}")
-    fun getRow(@PathVariable("listId") listId: String,
-               @RequestParam("questionId") questionId: String,
-               @RequestParam("partId") partId: String,
-               model: Model): String {
-
-        model.addAttribute("question",
-                questionnaireService.getQuestionByQuestionId(questionId))
+    fun getRow(
+        @PathVariable("listId") listId: String,
+        @RequestParam("questionId") questionId: String,
+        @RequestParam("partId") partId: String,
+        model: Model
+    ): String {
+        model.addAttribute(
+            "question",questionnaireService.getQuestionByQuestionId(questionId)
+        )
         model.addAttribute("newAnswer", QuestionAnswer(answer = ""))
-        model.addAttribute("partsRecursive",
-                questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!))
+        model.addAttribute("key", "key")
+        model.addAttribute(
+            "partsRecursive",
+            questionnaireService.getPartRecursiveList(questionnaireService.getListQuestionnaireByListId(listId)?.parts!!)
+        )
         model.addAttribute("partQuestion", questionnaireService.getPartQuestionnaireByPartId(partId))
         return "editQuestion"
     }
 
     @PostMapping("/editQuestion/{listId}")
-    fun editRow(@RequestParam("partId") partId: String,
-                @PathVariable("listId") listId: String,
-                question: Question): String {
+    fun editRow(
+        @RequestParam("partId") partId: String,
+        @PathVariable("listId") listId: String,
+        question: Question
+    ): String {
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
         var editQuestion = questionnaireService.getQuestionByQuestionId(question.questionId!!)
 
@@ -50,9 +58,11 @@ class QuestionController(
     }
 
     @PostMapping("/addQuestion/{listId}")
-    fun addQuestion(@RequestParam("partId") partId: String,
-                    @PathVariable("listId") listId: String,
-                    question: Question): String {
+    fun addQuestion(
+        @RequestParam("partId") partId: String,
+        @PathVariable("listId") listId: String,
+        question: Question
+    ): String {
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
         editPart?.questions?.add(questionnaireService.saveEditQuestion(question))
         if (editPart != null) {
@@ -62,8 +72,10 @@ class QuestionController(
     }
 
     @GetMapping("/deleteQuestion/{listId}/{questionId}")
-    fun deleteQuestion(@PathVariable("questionId") questionId: String,
-                       @PathVariable("listId") listId: String): String {
+    fun deleteQuestion(
+        @PathVariable("questionId") questionId: String,
+        @PathVariable("listId") listId: String
+    ): String {
         questionnaireService.deleteQuestion(questionId)
         return "redirect:/main/editList/${listId}"
     }

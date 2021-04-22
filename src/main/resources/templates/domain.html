@@ -17,13 +17,13 @@
 <div class="alert alert-primary">
     <div class="row">
         <div class="col-1">
-            <a th:text="Back"
+            <a th:text="Назад"
                th:href="@{'/main/editList/'+${list.listId}}"
                style="margin-top: 1%;" class="btn btn-outline-primary"></a>
         </div>
         <div class="col">
             <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
-                <input type="submit" th:value="${'sign out'}" class="btn btn-outline-danger"/>
+                <input type="submit" th:value="${'Выход'}" class="btn btn-outline-danger"/>
             </form>
         </div>
     </div>
@@ -41,7 +41,7 @@
                            class="btn btn-light" style="margin-top: 1%"></a>
                     </div>
                     <div class="col-1">
-                        <a th:text="'[edit]'"
+                        <a th:text="'[Изменить]'"
                            th:href="@{'/domain/editDomain/'+${list.listId}+'/'+${domain.domainId}}"
                            style="margin-top: 1%;"></a>
                     </div>

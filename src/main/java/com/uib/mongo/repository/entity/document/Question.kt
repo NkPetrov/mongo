@@ -5,14 +5,13 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 
 data class Question(
-        @field:DBRef
-        var answers: MutableList<QuestionAnswer>? = null,
-
-        var status: String? = null,
-        var description: String? = null,
-        override var number: String? = null,
-        override var name: String? = null
-): GenerateUUID, SectionQuestionnaire{
+    var status: String? = null,
+    var description: String? = null,
+    override var number: String? = null,
+    override var name: String? = null,
+    @field:DBRef
+    var answers: MutableList<QuestionAnswer>? = null,
+) : GenerateUUID, SectionQuestionnaire {
     @field:Id
     var questionId: String = generateUid()
 }

@@ -15,14 +15,14 @@
 <div class="alert alert-primary">
     <div class="row">
         <div class="col-2">
-            <form th:action="@{'/main/'}" th:method="get" type="button"
+            <form th:action="@{'/main/editList/'+${listId}}" th:method="get" type="button"
                   class="d-flex justify-content-start">
-                <input type="submit" value="Back" class="btn btn-outline-secondary"/>
+                <input type="submit" value="Назад" class="btn btn-outline-secondary"/>
             </form>
         </div>
         <div class="col">
             <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
-                <input type="submit" th:value="${' sign out'}"
+                <input type="submit" th:value="${'Выход'}"
                        class="btn btn-outline-danger"/>
             </form>
         </div>
@@ -31,7 +31,7 @@
 <div class="container">
     <div class="row">
         <div class="col d-flex justify-content-center">
-            <h3>Edit question name</h3>
+            <h3>Редактирование вопроса</h3>
         </div>
     </div>
     <div class="row">
@@ -41,8 +41,8 @@
                     <div class="form-group">
                         <label>Раздел</label>
                         <select th:name="'partId'" th:placeholder="'text'" class="form-control">
-<!--                            <option th:text="${partQuestion.name}" th:value="${partQuestion.partId}"-->
-<!--                                    th:name="'partId'"></option>-->
+                            <!--                            <option th:text="${partQuestion.name}" th:value="${partQuestion.partId}"-->
+                            <!--                                    th:name="'partId'"></option>-->
                             <table>
                                 <tbody>
                                 <tr th:each="part: ${partsRecursive}">
@@ -62,10 +62,6 @@
                         <input th:field="*{description}" class="form-control"/>
                     </div>
                     <div class="form-group" th:hidden="${true}">
-                        <label>answers</label>
-                        <input th:field="*{answers}" class="form-control"/>
-                    </div>
-                    <div class="form-group" th:hidden="${true}">
                         <label>number</label>
                         <input th:field="*{number}" class="form-control"/>
                     </div>
@@ -77,8 +73,12 @@
                         <label>Question ID</label>
                         <input th:field="*{questionId}" class="form-control"/>
                     </div>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>answers</label>
+                        <input th:field="*{answers}" class="form-control"/>
+                    </div>
                     <div class="row">
-                        <div class="col"></div>
+                        <div class="col-7"></div>
                         <div class="col-2">
                             <input type="submit" th:value="'Сохранить'" class="btn btn-primary btn-block"/>
                         </div>
@@ -88,7 +88,8 @@
                                class="btn btn-outline-danger" style="margin-top: 1%"></a>
                         </div>
                         <div class="col-1.5">
-                            <form th:action="@{'/main/editList/'+${listId}}" method="post" class="d-flex justify-content-center">
+                            <form th:action="@{'/main/editList/'+${listId}}" method="post"
+                                  class="d-flex justify-content-center" style="margin-left: 10px">
                                 <input type="submit" th:value="${'Отмена'}" class="btn btn-outline-danger"/>
                             </form>
                         </div>
@@ -103,30 +104,36 @@
                                     <div class="col">
                                         <h10 th:text="${answer.answer}"></h10>
                                     </div>
-                                    <div class="col-1 d-flex justify-content-end">
-                                        <form th:action="@{'/answer/editAnswer/'+${listId}}" type="button"
-                                              th:method="get" class="d-flex justify-content-start">
-                                            <div th:hidden="${true}">
-                                                <input th:name="answerId" th:value="${answer.answerId}"/>
-                                            </div>
-                                            <input type="submit" th:value="${'[edit]'}" class="btn btn-outline-secondary"/>
-                                        </form>
-                                        <form th:action="@{'/answer/deleteAnswer/'+${listId}}" type="button"
-                                              th:method="post" class="d-flex justify-content-start">
-                                            <div th:hidden="${true}">
-                                                <input th:name="answerId" th:value="${answer.answerId}">
-                                            </div>
-                                            <input type="submit" th:value="${'[delete]'}" class="btn btn-outline-secondary"/>
-                                        </form>
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <form th:action="@{'/answer/editAnswer/'+${listId}}" type="button"
+                                                  th:method="get" class="d-flex justify-content-start" style="margin-right: 8%">
+                                                <div th:hidden="${true}">
+                                                    <input th:name="answerId" th:value="${answer.answerId}"/>
+                                                </div>
+                                                <input type="submit" th:value="${'[Изменить]'}"
+                                                       class="btn btn-outline-secondary"/>
+                                            </form>
+                                            <form th:action="@{'/answer/deleteAnswer/'+${listId}}" type="button"
+                                                  th:method="post" class="d-flex justify-content-start">
+                                                <div th:hidden="${true}">
+                                                    <input th:name="answerId" th:value="${answer.answerId}">
+                                                </div>
+                                                <input type="submit" th:value="${'[Удалить]'}"
+                                                       class="btn btn-outline-secondary"/>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
                     <div class="row">
-                        <div class="col-11 d-flex justify-content-end" style="margin-top: 2%">
-                            <a th:text="'[add]'"
-                            type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal1"
+                        <div class="col"></div>
+                        <div class="col-3 d-flex justify-content-end" style="margin-top: 2%; margin-right : 3%">
+                            <a th:text="'[Добавить]'"
+                               type="button" class="btn btn-outline-secondary" data-toggle="modal"
+                               data-target="#exampleModal1"
                             ></a>
                         </div>
                     </div>
@@ -141,19 +148,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Creating question</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Редактирование ответа</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form th:action="@{'/answer/addAnswer/'+${question.questionId}}" th:object="${newAnswer}" method="post">
-                    <div class="form-group" th:hidden="${false}">
+                    <div class="form-group" th:hidden="${true}">
                         <label>number</label>
                         <input th:field="*{answerId}" class="form-control">
                     </div>
                     <div class="form-group" th:hidden="${false}">
-                        <label>Answer</label>
+                        <label>Ответ</label>
                         <input th:field="*{answer}" class="form-control">
                     </div>
                     <div th:hidden="${true}">

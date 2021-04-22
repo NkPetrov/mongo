@@ -17,36 +17,37 @@
 <body class="alert">
 <div class="alert alert-primary">
     <div class="row">
-        <div class="col-2 d-flex justify-content-center">
+        <div class="col-1.5 d-flex justify-content-center">
             <form th:action="@{'/domain/'+${listId}}" th:method="get" type="button"
                   class="d-flex justify-content-end">
-                <input type="submit" value="Manage subject area" class="btn btn-primary"/>
+                <input type="submit" value="Доменная область" class="btn btn-primary"/>
             </form>
         </div>
-        <div class="col-1.5">
+        <div class="col-3">
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal2">
-                Add question
+                Добавить вопрос
             </button>
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal1">
-                Add part
+                Добавить раздел
             </button>
         </div>
         <div class="col">
-            <h3 th:text="${list.listName}" class="d-flex justify-content-center"></h3>
+            <h3 th:text="${list.listName}" class="d-flex justify-content-start"></h3>
         </div>
         <div class="col-1">
-            <form th:action="@{'/main/editListName/'+${list.listId}}" method="get" class="d-flex justify-content-start">
-                <input type="submit" th:value="${'Edit'}"
+            <form th:action="@{'/main/editListName/'+${list.listId}}" method="get" class="d-flex justify-content-end">
+                <input type="submit" th:value="${'Изменить'}"
                        class="btn btn-outline-danger"/>
             </form>
         </div>
-        <div class="col-1">
+        <div class="col-0.6">
             <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
-                <input type="submit" th:value="${'sign out'}"
+                <input type="submit" th:value="${'Удалить'}"
                        class="btn btn-outline-danger"/>
             </form>
         </div>
     </div>
+</div>
 </div>
 <table class="table table-bordered">
     <thead class="table table-striped"></thead>
@@ -60,12 +61,11 @@
                             <div class="col">
                                 <h7 th:text="${part.name}" style="margin-bottom: 10px"></h7>
                             </div>
-                            <div class="col-1 d-flex justify-content-end">
+                            <div class="col-2 d-flex justify-content-center" style="margin-bottom: 1%">
                                 <form th:action="@{'/main/editInnerPart/'+${part.partId}+'/'+${list.listId}}"
                                       type="button"
                                       th:method="get" class="d-flex justify-content-start">
-
-                                    <input type="submit" th:value="${'[edit]'}" class="btn btn-outline-secondary">
+                                    <input type="submit" th:value="${'[Изменить]'}" class="btn btn-outline-secondary">
                                 </form>
                             </div>
                         </div>
@@ -77,14 +77,14 @@
                                     <div class="col">
                                         <h10 th:text="${question.name}"></h10>
                                     </div>
-                                    <div class="col-1 d-flex justify-content-end">
+                                    <div class="col-3 d-flex justify-content-end">
                                         <form th:action="@{'/question/editQuestion/'+${listId}}" type="button"
                                               th:method="get" class="d-flex justify-content-start">
                                             <div th:hidden="${true}">
                                                 <input th:name="partId" th:value="${part.partId}">
                                                 <input th:name="questionId" th:value="${question.questionId}">
                                             </div>
-                                            <input type="submit" th:value="${'[edit]'}"
+                                            <input type="submit" th:value="${'[Изменить]'}"
                                                    class="btn btn-outline-secondary">
                                         </form>
                                         <!--                                        <a th:text="'[еdit]'"-->
@@ -117,7 +117,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Creating question</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">Новый вопрос</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -177,7 +177,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Creating question</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Новый раздел</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

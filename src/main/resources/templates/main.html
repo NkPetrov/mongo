@@ -18,12 +18,12 @@
     <div class="row">
         <div class="col-1">
             <form th:action="@{/main/createWidget}" method="get" class="d-flex justify-content-start">
-                <input type="submit" th:value="'Add project'" class="btn btn-outline-primary"/>
+                <input type="submit" th:value="'Добавить проект'" class="btn btn-outline-primary"/>
             </form>
         </div>
         <div class="col">
             <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
-                <input type="submit" th:value="${'sign out'}" class="btn btn-outline-danger"/>
+                <input type="submit" th:value="${'Выход'}" class="btn btn-outline-danger"/>
             </form>
         </div>
     </div>
@@ -58,7 +58,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Creating list</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">Добавить лист</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -165,7 +165,7 @@
                             <form class="align-self-center"
                                   th:action="@{'/main/deleteProject/'+${questionnaires.questionnaireId}}"
                                   th:method="get">
-                                <input type="submit" value="Delete" class="btn btn-outline-primary"/>
+                                <input type="submit" value="Удалить" class="btn btn-outline-primary"/>
                             </form>
                         </div>
                     </div>
@@ -180,8 +180,8 @@
                                th:href="@{'/main/'+${list.listId}+'/viewlist/'}"
                                class="btn btn-light" style="margin-top: 1%"></a>
                         </div>
-                        <div class="col-1">
-                            <a th:text="Edit"
+                        <div class="col-1.5">
+                            <a th:text="Изменить"
                                th:href="@{'/main/editList/'+${list.listId}}"
                                class="btn btn-dark" style="margin-top: 1%;"></a>
                         </div>
@@ -193,8 +193,8 @@
                                th:hidden="${true}"
                                class="btn btn-light" style="margin-top: 1%"></a>
                         </div>
-                        <div class="col-1">
-                            <button th:text="Add"  style="margin-top: 1%;" type="button" class="btn btn-outline-secondary"
+                        <div class="col-1.5">
+                            <button th:text="Добавить"  style="margin-top: 1%;" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal" data-target="#exampleModal3"></button>
 
                         </div>
@@ -203,10 +203,10 @@
             </div>
             <!-- Modal3 -->
             <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">1
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel3">Creating list</h5>
+                            <h5 class="modal-title" id="exampleModalLabel3">Новый лист</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -214,7 +214,7 @@
                         <div class="modal-body">
                             <form action="#" th:action="@{'/list/addList/'+${questionnaires.questionnaireId}}" method="post" th:object="${newList}">
                                 <div class="form-group">
-                                    <label>Название листа</label>
+                                    <label>Название</label>
                                     <input th:field="*{listName}" class="form-control" rows="1">
                                 </div>
                                 <div class="form-group" th:hidden="${true}">
