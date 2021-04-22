@@ -41,8 +41,8 @@
                     <div class="form-group">
                         <label>Раздел</label>
                         <select th:name="'partId'" th:placeholder="'text'" class="form-control">
-                            <!--                            <option th:text="${partQuestion.name}" th:value="${partQuestion.partId}"-->
-                            <!--                                    th:name="'partId'"></option>-->
+                            <option th:text="${partQuestion.name}" th:value="${partQuestion.partId}"
+                                    th:name="'partId'" selected="selected" th:hidden="true"></option>
                             <table>
                                 <tbody>
                                 <tr th:each="part: ${partsRecursive}">
@@ -107,7 +107,8 @@
                                     <div class="col-3">
                                         <div class="row">
                                             <form th:action="@{'/answer/editAnswer/'+${listId}}" type="button"
-                                                  th:method="get" class="d-flex justify-content-start" style="margin-right: 8%">
+                                                  th:method="get" class="d-flex justify-content-start"
+                                                  style="margin-right: 8%">
                                                 <div th:hidden="${true}">
                                                     <input th:name="answerId" th:value="${answer.answerId}"/>
                                                 </div>

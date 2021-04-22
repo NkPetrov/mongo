@@ -29,37 +29,48 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col d-flex justify-content-center">
-        <h3>Редактирование листа</h3>
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <h3>Редактирование листа</h3>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col d-flex justify-content-center">
-        <div class="card-body">
-            <form th:action="@{'/main/editListName/'+${list.listId}}" th:object="${list}" method="post">
-                <div class="form-group">
-                    <label>Название</label>
-                    <input th:field="*{listName}"
-                              class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${true}">
-                    <label>Абзацы</label>
-                    <input th:field="*{parts}" class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${true}">
-                    <label>ListId</label>
-                    <input th:field="*{listId}" class="form-control">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="submit" value="Обновить" class="btn btn-primary btn-lg btn-block"/>
-                        <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
-                            <input type="submit" th:value="${'delete'}" class="btn btn-outline-danger"/>
-                        </form>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <div class="card-body">
+                <form th:action="@{'/main/editListName/'+${list.listId}}" th:object="${list}" method="post">
+                    <div class="form-group">
+                        <label>Название</label>
+                        <input th:field="*{listName}"
+                               class="form-control">
                     </div>
-                </div>
-            </form>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>Абзацы</label>
+                        <input th:field="*{parts}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>ListId</label>
+                        <input th:field="*{listId}" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-7"></div>
+                        <div class="col-2">
+                            <input type="submit" th:value="'Сохранить'" class="btn btn-primary btn-block"/>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            <a th:text="${'Удалить'}"
+                               th:href="@{'/list/deleteList/'+${listId}}"
+                               class="btn btn-outline-danger" style="margin-top: 1%"></a>
+                        </div>
+                        <div class="col-1.5">
+                            <form th:action="@{'/main/editList/'+${listId}}" method="post"
+                                  class="d-flex justify-content-center" style="margin-left: 10px">
+                                <input type="submit" th:value="${'Отмена'}" class="btn btn-outline-danger"/>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

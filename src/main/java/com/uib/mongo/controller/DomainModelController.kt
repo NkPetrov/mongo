@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/domain")
 class DomainModelController(
-        private val questionnaireService: QuestionnaireService,
-        private val customUserDetailsService: CustomUserDetailsService
+        private val questionnaireService: QuestionnaireService
 ) {
 
     @GetMapping("{listId}")
@@ -22,6 +21,8 @@ class DomainModelController(
                         model: Model): String {
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
+        model.addAttribute("domain",DomainQuestionnaire(""))
+
         return "domain"
     }
 
@@ -38,6 +39,20 @@ class DomainModelController(
     fun editListName(@PathVariable("listId") listId: String,
                      domain: DomainQuestionnaire): String {
         questionnaireService.saveEditDomain(domain)
+        return "redirect:/domain/${listId}"
+    }
+
+    @PostMapping("/addDomain/{listId}")
+    fun addDomain(@PathVariable("listId") listId: String,
+                     domain: DomainQuestionnaire): String {
+        questionnaireService.addDomain(domain, listId)
+        return "redirect:/domain/${listId}"
+    }
+
+    @GetMapping("/deleteDomain/{domainId}/{listId}")
+    fun deleteDomain(@PathVariable("domainId") domainId: String,
+                    @PathVariable("listId") listId: String): String {
+        questionnaireService.deleteDomain(domainId)
         return "redirect:/domain/${listId}"
     }
 }

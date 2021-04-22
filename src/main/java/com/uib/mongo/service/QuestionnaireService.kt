@@ -25,7 +25,8 @@ class QuestionnaireService(
     private val answersRepo: QuestionAnswersRepository
 ) {
     fun getQuestionnaireByUser(user: User?): List<Questionnaire>? = questionnaireRepo.findByCreator(user?.username)
-    fun getQuestionnaireByQuestionnaireId(questionnaireId: String?): Questionnaire? = questionnaireRepo.findByQuestionnaireId(questionnaireId)
+    fun getQuestionnaireByQuestionnaireId(questionnaireId: String?): Questionnaire? =
+        questionnaireRepo.findByQuestionnaireId(questionnaireId)
 
     fun getListQuestionnaireByListId(listId: String): ListQuestionnaire? = listQuestionnaireRepo.findByListId(listId)
 
@@ -39,6 +40,14 @@ class QuestionnaireService(
     fun getDomainById(domainId: String): DomainQuestionnaire? = domainQuestionnaireRepo.findByDomainId(domainId)
 
     fun getAnswerById(answerId: String): QuestionAnswer? = answersRepo.findByAnswerId(answerId)
+
+    fun addDomain(domain: DomainQuestionnaire, listid: String) {
+        val domainSaved = domainQuestionnaireRepo.save(domain)
+        val list = listQuestionnaireRepo.findByListId(listid)
+        list!!.domainSections!!.add(domainSaved)
+        listQuestionnaireRepo.save(list)
+    }
+
 
     fun saveEditList(list: ListQuestionnaire) = listQuestionnaireRepo.save(list)
 
@@ -59,6 +68,10 @@ class QuestionnaireService(
     fun deletePart(partId: String) = partQuestionnaireRepo.deleteById(partId)
 
     fun deleteAnswer(answerId: String) = answersRepo.deleteById(answerId)
+
+    fun deleteDomain(domainId: String) = domainQuestionnaireRepo.deleteById(domainId)
+
+    fun deleteList(listId: String) = listQuestionnaireRepo.deleteById(listId)
 
     fun getPartRecursiveList(parts: List<PartQuestionnaire>): List<PartQuestionnaire>? {
         if (parts != null) {
@@ -103,9 +116,9 @@ class QuestionnaireService(
     }
 
     fun getNumberParentPart(parts: MutableList<PartQuestionnaire>?) {
-            parts?.forEachIndexed { index, element ->
-                element.number += index.plus(1).toString()
-                saveEditPart(element)
+        parts?.forEachIndexed { index, element ->
+            element.number += index.plus(1).toString()
+            saveEditPart(element)
         }
     }
 }

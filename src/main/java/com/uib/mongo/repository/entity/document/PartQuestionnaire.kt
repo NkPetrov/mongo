@@ -11,7 +11,7 @@ data class PartQuestionnaire(
         var children : MutableList<PartQuestionnaire>? = null,
 
         @field:DBRef
-        var questions: MutableList<Question>? = null,
+        var questions: MutableList<Question>? = mutableListOf(),
 
         override var number: String? = null,
         override var name: String? = null

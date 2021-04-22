@@ -14,12 +14,6 @@
 <body class="alert">
 <div class="alert alert-primary">
     <div class="row">
-        <div class="col-2">
-            <form th:action="@{'/main/'}" th:method="get" type="button"
-                  class="d-flex justify-content-start">
-                <input type="submit" value="Назад" class="btn btn-outline-secondary"/>
-            </form>
-        </div>
         <div class="col">
             <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
                 <input type="submit" th:value="${'Выход'}"
@@ -35,20 +29,39 @@
     </div>
 </div>
 <div class="row">
-    <div class="col d-flex justify-content-center">
-        <div class="card-body">
-            <form th:action="@{'/domain/editDomain/'+${listId}+'/'+${domainId}}" th:object="${domain}" method="post">
-                <div class="form-group">
-                    <label>Доменная область</label>
-                    <input th:field="*{nameDomainSection}"
-                              class="form-control">
-                </div>
-                <div class="form-group" th:hidden="${true}">
-                    <label>Domain ID</label>
-                    <input th:field="*{domainId}" class="form-control">
-                </div>
-                <input type="submit" value="Обновить" class="btn btn-primary btn-lg btn-block"/>
-            </form>
+    <div class="container">
+        <div class="col d-flex justify-content-center">
+            <div class="card-body">
+                <form th:action="@{'/domain/editDomain/'+${listId}+'/'+${domainId}}" th:object="${domain}"
+                      method="post">
+                    <div class="form-group">
+                        <label>Доменная область</label>
+                        <input th:field="*{nameDomainSection}"
+                               class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${true}">
+                        <label>Domain ID</label>
+                        <input th:field="*{domainId}" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-7"></div>
+                        <div class="col-2">
+                            <input type="submit" th:value="'Сохранить'" class="btn btn-primary btn-block"/>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            <a th:text="${'Удалить'}"
+                               th:href="@{'/domain/deleteDomain/'+${domain.domainId}+'/'+${listId}}"
+                               class="btn btn-outline-danger" style="margin-top: 1%"></a>
+                        </div>
+                        <div class="col-1.5">
+                            <form th:action="@{'/main/editList/'+${listId}}" method="post"
+                                  class="d-flex justify-content-center" style="margin-left: 10px">
+                                <input type="submit" th:value="${'Отмена'}" class="btn btn-outline-danger"/>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

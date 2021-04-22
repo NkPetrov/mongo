@@ -39,8 +39,8 @@ class QuestionController(
 
     @PostMapping("/editQuestion/{listId}")
     fun editRow(
-        @RequestParam("partId") partId: String,
         @PathVariable("listId") listId: String,
+        @RequestParam("partId") partId: String,
         question: Question
     ): String {
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
@@ -48,7 +48,7 @@ class QuestionController(
 
         if (editQuestion != null) {
             if (!editPart?.questions!!.contains(editQuestion)) {
-                editPart?.questions?.add(questionnaireService.saveEditQuestion(question))
+                editPart!!.questions!!.add(questionnaireService.saveEditQuestion(question))
                 questionnaireService.saveEditPart(editPart!!)
             } else {
                 questionnaireService.saveEditQuestion(question)

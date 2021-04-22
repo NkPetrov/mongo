@@ -40,10 +40,20 @@
                            th:href="@{'/main/'+${list.listId}+'/viewlist/'}"
                            class="btn btn-light" style="margin-top: 1%"></a>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <a th:text="'[Изменить]'"
                            th:href="@{'/domain/editDomain/'+${list.listId}+'/'+${domain.domainId}}"
+                           class="btn btn-outline-secondary"
                            style="margin-top: 1%;"></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-3 d-flex justify-content-end" style="margin-right : 4%">
+                        <a th:text="'[Добавить]'"
+                           type="button" class="btn btn-outline-secondary" data-toggle="modal"
+                           data-target="#exampleModal1"
+                        ></a>
                     </div>
                 </div>
             </div>
@@ -51,6 +61,32 @@
     </div>
 </div>
 
+<!-- ModalDomain -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Добавление предметной области</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{'/domain/addDomain/'+${listId}}" th:object="${domain}" method="post">
+                    <div class="form-group" th:hidden="${true}">
+                        <label>domainId</label>
+                        <input th:field="*{domainId}" class="form-control">
+                    </div>
+                    <div class="form-group" th:hidden="${false}">
+                        <label>Название</label>
+                        <input th:field="*{nameDomainSection}" class="form-control">
+                    </div>
+                    <input type="submit" value="Добавить" class="btn btn-primary btn-lg btn-block"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

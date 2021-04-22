@@ -10,7 +10,7 @@ data class Question(
     override var number: String? = null,
     override var name: String? = null,
     @field:DBRef
-    var answers: MutableList<QuestionAnswer>? = null,
+    var answers: MutableList<QuestionAnswer>? = mutableListOf(),
 ) : GenerateUUID, SectionQuestionnaire {
     @field:Id
     var questionId: String = generateUid()
