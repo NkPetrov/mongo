@@ -203,7 +203,7 @@
             </div>
             <!-- Modal3 -->
             <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel3">Новый лист</h5>
@@ -215,7 +215,7 @@
                             <form action="#" th:action="@{'/list/addList/'+${questionnaires.questionnaireId}}" method="post" th:object="${newList}">
                                 <div class="form-group">
                                     <label>Название</label>
-                                    <input th:field="*{listName}" class="form-control" rows="1">
+                                    <textarea th:field="*{listName}" class="form-control" rows="1"></textarea>
                                 </div>
                                 <div class="form-group" th:hidden="${true}">
                                     <label>listId</label>
