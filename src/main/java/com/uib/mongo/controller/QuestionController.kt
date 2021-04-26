@@ -9,6 +9,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
@@ -44,24 +45,31 @@ class QuestionController(
     fun editRow(
         @PathVariable("listId") listId: String,
         @RequestParam("partId") partId: String,
-        question: Question, attribute: RedirectAttributes
+        @RequestParam("questionId") questionId: String,
+        @RequestParam("nameQuestion") nameQuestion: String,
+        attribute: RedirectAttributes
     ): RedirectView{
+        var editQuestion = questionnaireService.getQuestionByQuestionId(questionId)
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
-        var editQuestion = questionnaireService.getQuestionByQuestionId(question.questionId)
 
         if (editQuestion != null) {
             if (!editPart!!.questions!!.contains(editQuestion)) {
                 questionnaireService.deleteQuestion(editQuestion.questionId)
-                question.questionId = UUID.randomUUID().toString()
-                editPart.questions!!.add(questionnaireService.saveEditQuestion(question))
+
+                //Generate new id and name
+                editQuestion.questionId = UUID.randomUUID().toString()
+                editQuestion.name = nameQuestion
+
+                editPart.questions!!.add(questionnaireService.saveEditQuestion(editQuestion))
                 questionnaireService.saveEditPart(editPart)
             } else {
-                questionnaireService.saveEditQuestion(question)
+                editQuestion.name = nameQuestion
+                questionnaireService.saveEditQuestion(editQuestion)
             }
         }
 
         attribute.addAttribute("partId", partId)
-        attribute.addAttribute("questionId", question.questionId)
+        attribute.addAttribute("questionId", editQuestion!!.questionId)
         return RedirectView("/question/editQuestion/${listId}")
 
        // return "redirect:/main/editList/${listId}"

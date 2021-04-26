@@ -6,6 +6,6 @@ import org.springframework.data.annotation.Id
 data class QuestionAnswer(
     var answer: String? = null
 ) : GenerateUUID {
-    @Id
+    @field:Id
     var answerId: String = generateUid()
 }

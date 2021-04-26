@@ -92,8 +92,6 @@
                     <div th:insert="~{editList :: recurs}" th:with="partsRecursive=${part.children}"></div>
                 </li>
             </ul>
-            </ul>
-        </div>
         </div>
     </tr>
 </table>
@@ -157,7 +155,7 @@
                     </div>
                     <div class="form-group" th:hidden="${false}">
                         <label>Вопрос</label>
-                        <input th:field="*{name}" class="form-control">
+                        <textarea th:field="*{name}" class="form-control"></textarea>
                     </div>
                     <input type="submit" value="Добавить" class="btn btn-primary btn-lg btn-block"/>
                 </form>
@@ -181,18 +179,17 @@
                       method="post">
                     <div class="form-group">
                         <label>Раздел</label>
-                        <select th:name="partId" class="form-control">
+                        <select th:name="partIdSelected" class="form-control">
                             <table>
                                 <tbody>
                                 <tr th:each="part: ${partsList}">
                                     <option th:value="${part.partId}">
                                         <td th:text="${part.name}"></td>
                                     </option>
-                                    <td th:text="${part.partId}" th:value="${part.partId}"
-                                        th:name="partId" class="form-control"></td>
                                 </tr>
                                 </tbody>
                             </table>
+                            <option th:text="${list.listName}" th:value="list"></option>
                         </select>
                     </div>
 
@@ -218,7 +215,7 @@
                     </div>
                     <div class="form-group">
                         <label>Имя раздела</label>
-                        <input th:field="*{name}" class="form-control">
+                        <textarea th:field="*{name}" class="form-control"></textarea>
                     </div>
 
                     <input type="submit" value="Добавить" class="btn btn-primary btn-lg btn-block"/>

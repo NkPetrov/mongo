@@ -14,23 +14,33 @@ import org.springframework.web.bind.annotation.RequestParam
 class PartController(
         private val questionnaireService: QuestionnaireService
 ) {
-    @PostMapping("/addPart/{listId}")
-    fun editPart(@RequestParam("partId") partPartId: String,
-                 @PathVariable("listId") listId: String,
-                 part: PartQuestionnaire): String {
-        var parentPart = questionnaireService.getPartQuestionnaireByPartId(partPartId)
-        parentPart?.children?.add(questionnaireService.saveEditPart(part))
-        if (parentPart != null) {
-            questionnaireService.saveEditPart(parentPart)
-        }
-        return "redirect:/main/editList/${listId}"
-    }
-
     @GetMapping("/deletePart/{listId}/{partId}")
     fun deletePart(@PathVariable("partId") partId: String,
                    @PathVariable("listId") listId: String
     ): String {
         questionnaireService.deletePart(partId)
+        return "redirect:/main/editList/${listId}"
+    }
+
+    @PostMapping("/addPart/{listId}")
+    fun editPart(@PathVariable("listId") listId: String,
+                 @RequestParam("partIdSelected") partIdSelected: String,
+                 part: PartQuestionnaire): String {
+        if(partIdSelected == "list"){
+            var parentList = questionnaireService.getListQuestionnaireByListId(listId)
+            var partSaving = PartQuestionnaire(name = part.name)
+            partSaving.parentId = "list"
+            questionnaireService.saveEditPart(partSaving)
+            parentList!!.parts!!.add(partSaving)
+            questionnaireService.saveEditList(parentList)
+        }else{
+            var parentPart = questionnaireService.getPartQuestionnaireByPartId(partIdSelected)
+            parentPart?.children?.add(questionnaireService.saveEditPart(part))
+            if (parentPart != null) {
+                questionnaireService.saveEditPart(parentPart)
+            }
+        }
+
         return "redirect:/main/editList/${listId}"
     }
 }
