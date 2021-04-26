@@ -32,6 +32,7 @@ class QuestionController(
             "question", questionnaireService.getQuestionByQuestionId(questionId)
         )
         model.addAttribute("newAnswer", QuestionAnswer(answer = ""))
+        model.addAttribute("partId", partId)
         model.addAttribute("key", "key")
         model.addAttribute(
             "partsRecursive",

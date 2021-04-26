@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
-@RequestMapping("/main")
+@RequestMapping(value = ["/", "/main"], method = [RequestMethod.GET])
 class MainController(
         private val questionnaireService: QuestionnaireService,
         private val customUserDetailsService: CustomUserDetailsService
 ) {
-
     @GetMapping
     fun getStartingPage(model: Model): String {
         model.addAttribute("newQuestionnaire", Questionnaire(name = "default"))

@@ -92,7 +92,7 @@ class LoginController(
         return modelAndView
     }
 
-    @RequestMapping(value = ["/", "/home"], method = [RequestMethod.GET])
+    @RequestMapping(value = ["/home"], method = [RequestMethod.GET])
     fun home(): ModelAndView {
         val modelAndView = ModelAndView()
         modelAndView.viewName = "home"

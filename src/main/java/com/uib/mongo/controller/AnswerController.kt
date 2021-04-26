@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.servlet.view.RedirectView
 
 @Controller
 @RequestMapping("/answer")
@@ -18,7 +20,11 @@ class AnswerController(
     @GetMapping("/editAnswer/{listId}")
     fun getAnswer(@PathVariable("listId") listId: String,
                   @RequestParam("answerId") answerId: String,
+                  @RequestParam("questionId") questionId: String,
+                  @RequestParam("partId") partId: String,
                   model: Model): String {
+        model.addAttribute("questionId",questionId)
+        model.addAttribute("partId",partId)
         model.addAttribute("answer", questionnaireService.getAnswerById(answerId = answerId))
         return "editAnswer"
     }
@@ -26,28 +32,47 @@ class AnswerController(
     @PostMapping("/addAnswer/{questionId}")
     fun addAnswer(@PathVariable("questionId") questionId: String,
                   @RequestParam("listId") listId: String,
-                  answer: QuestionAnswer): String {
+                  @RequestParam("partId") partId: String,
+                  answer: QuestionAnswer,
+                  attribute: RedirectAttributes
+    ): RedirectView {
         var answer = questionnaireService.saveEditAnswer(answer)
         var question = questionnaireService.getQuestionByQuestionId(questionId)
         question!!.answers!!.add(answer)
         questionnaireService.saveEditQuestion(question)
-        return "redirect:/main/editList/${listId}"
+
+        attribute.addAttribute("questionId", questionId)
+        attribute.addAttribute("partId", partId)
+        return RedirectView("/question/editQuestion/${listId}")
     }
 
     @PostMapping("/editAnswer/{listId}")
     fun editAnswer(@PathVariable("listId") listId: String,
                    @RequestParam("answerId") answerId: String,
-                   answer: QuestionAnswer): String {
+                   @RequestParam("partId") partId: String,
+                   @RequestParam("questionId") questionId: String,
+                   answer: QuestionAnswer,
+                   attribute: RedirectAttributes
+    ): RedirectView {
         questionnaireService.saveEditAnswer(answer)
-        return "redirect:/main/editList/${listId}"
+
+        attribute.addAttribute("questionId", questionId)
+        attribute.addAttribute("partId", partId)
+        return RedirectView("/question/editQuestion/${listId}")
     }
 
     @PostMapping("/deleteAnswer/{listId}")
     fun deleteAnswer(
             @PathVariable("listId") listId: String,
             @RequestParam("answerId") answerId: String,
-    ): String {
+            @RequestParam("partId") partId: String,
+            @RequestParam("questionId") questionId: String,
+            attribute: RedirectAttributes
+    ): RedirectView {
         questionnaireService.deleteAnswer(answerId)
-        return "redirect:/main/editList/${listId}"
+
+        attribute.addAttribute("questionId", questionId)
+        attribute.addAttribute("partId", partId)
+        return RedirectView("/question/editQuestion/${listId}")
     }
 }

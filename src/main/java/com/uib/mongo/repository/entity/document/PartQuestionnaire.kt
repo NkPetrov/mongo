@@ -8,7 +8,7 @@ data class PartQuestionnaire(
         var parentId: String? = null,
 
         @field:DBRef
-        var children : MutableList<PartQuestionnaire>? = null,
+        var children : MutableList<PartQuestionnaire>? = mutableListOf(),
 
         @field:DBRef
         var questions: MutableList<Question>? = mutableListOf(),

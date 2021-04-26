@@ -14,9 +14,6 @@ open class PageConfig : WebMvcConfigurer {
     }
 
     override fun addViewControllers(registry: ViewControllerRegistry) {
-        registry.addViewController("/home").setViewName("home")
-        registry.addViewController("/").setViewName("home")
-        registry.addViewController("/dashboard").setViewName("dashboard")
         registry.addViewController("/login").setViewName("login")
     }
 }

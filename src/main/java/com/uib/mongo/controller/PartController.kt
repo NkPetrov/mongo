@@ -35,10 +35,9 @@ class PartController(
             questionnaireService.saveEditList(parentList)
         }else{
             var parentPart = questionnaireService.getPartQuestionnaireByPartId(partIdSelected)
-            parentPart?.children?.add(questionnaireService.saveEditPart(part))
-            if (parentPart != null) {
-                questionnaireService.saveEditPart(parentPart)
-            }
+            var partSaved = questionnaireService.saveEditPart(part)
+            parentPart!!.children!!.add(partSaved)
+            questionnaireService.saveEditPart(parentPart!!)
         }
 
         return "redirect:/main/editList/${listId}"
