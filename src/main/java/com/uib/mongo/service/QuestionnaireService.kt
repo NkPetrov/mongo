@@ -65,7 +65,7 @@ class QuestionnaireService(
 
     fun deleteQuestion(questionId: String) = questionRepo.deleteById(questionId)
 
-    fun deletePart(partId: String) = partQuestionnaireRepo.deleteById(partId)
+    fun deletePart(part: PartQuestionnaire) = partQuestionnaireRepo.delete(part)
 
     fun deleteAnswer(answerId: String) = answersRepo.deleteById(answerId)
 
@@ -119,6 +119,28 @@ class QuestionnaireService(
         parts?.forEachIndexed { index, element ->
             element.number += index.plus(1).toString()
             saveEditPart(element)
+        }
+    }
+
+    fun recursSearchPart(listId: String, partSearch: PartQuestionnaire?) {
+        var partsList = getListQuestionnaireByListId(listId)!!.parts
+
+        for (part in partsList!!) {
+            recursSearchPart(partSearch!!, part)
+        }
+    }
+
+    fun recursSearchPart(partSearch: PartQuestionnaire, partsChildren: PartQuestionnaire) {
+        if (partsChildren.children!!.size != 0) {
+            for (part in partsChildren.children!!) {
+                if (part == partSearch) {
+                   var deletePart = getPartQuestionnaireByPartId(partsChildren.partId)
+                    deletePart!!.children!!.remove(partSearch)
+                    saveEditPart(deletePart)
+                } else {
+                    recursSearchPart(partSearch, part)
+                }
+            }
         }
     }
 }

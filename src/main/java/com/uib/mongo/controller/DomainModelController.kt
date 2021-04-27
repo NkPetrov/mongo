@@ -16,9 +16,10 @@ class DomainModelController(
         private val questionnaireService: QuestionnaireService
 ) {
 
-    @GetMapping("{listId}")
+    @GetMapping("/{listId}")
     fun getStartingPage(@PathVariable("listId") listId: String,
-                        model: Model): String {
+                        model: Model
+    ): String {
         model.addAttribute("list",
                 questionnaireService.getListQuestionnaireByListId(listId))
         model.addAttribute("domain",DomainQuestionnaire(""))
@@ -29,7 +30,8 @@ class DomainModelController(
     @GetMapping("/editDomain/{listId}/{domainId}")
     fun editList(@PathVariable("domainId") domainId: String,
                  @PathVariable("listId") listId: String,
-                 model: Model): String {
+                 model: Model
+    ): String {
         model.addAttribute("domain",
                 questionnaireService.getDomainById(domainId))
         return "editDomain"
@@ -52,6 +54,9 @@ class DomainModelController(
     @GetMapping("/deleteDomain/{domainId}/{listId}")
     fun deleteDomain(@PathVariable("domainId") domainId: String,
                     @PathVariable("listId") listId: String): String {
+        var list = questionnaireService.getListQuestionnaireByListId(listId)
+        list!!.domainSections!!.remove(questionnaireService.getDomainById(domainId))
+        questionnaireService.saveEditList(list)
         questionnaireService.deleteDomain(domainId)
         return "redirect:/domain/${listId}"
     }

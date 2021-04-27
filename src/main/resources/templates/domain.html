@@ -33,27 +33,29 @@
     <div class="row d-flex justify-content-center">
         <div class="card" style="width: 80rem; margin-top: 1%">
             <div class="card card-body">
-                <div class="row" style="bottom:5%"
-                     th:each="domain : ${list.domainSections}">
-                    <div class="col d-flex justify-content-start">
-                        <a th:text="${domain.nameDomainSection}"
-                           th:href="@{'/main/'+${list.listId}+'/viewlist/'}"
-                           class="btn btn-light" style="margin-top: 1%"></a>
+                <div th:if="${list.domainSections != null}">
+                    <div class="row" style="bottom:5%"
+                         th:each="domain : ${list.domainSections}">
+                        <div class="col d-flex justify-content-start">
+                            <a th:text="${domain.nameDomainSection}"
+                               th:href="@{'/main/'+${list.listId}+'/viewlist/'}"
+                               class="btn btn-light" style="margin-top: 1%"></a>
+                        </div>
+                        <div class="col-2">
+                            <a th:text="'[Изменить]'"
+                               th:href="@{'/domain/editDomain/'+${list.listId}+'/'+${domain.domainId}}"
+                               class="btn btn-outline-secondary"
+                               style="margin-top: 1%;"></a>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <a th:text="'[Изменить]'"
-                           th:href="@{'/domain/editDomain/'+${list.listId}+'/'+${domain.domainId}}"
-                           class="btn btn-outline-secondary"
-                           style="margin-top: 1%;"></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col-3 d-flex justify-content-end" style="margin-right : 4%">
-                        <a th:text="'[Добавить]'"
-                           type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                           data-target="#exampleModal1"
-                        ></a>
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-3 d-flex justify-content-end" style="margin-right : 4%">
+                            <a th:text="'[Добавить]'"
+                               type="button" class="btn btn-outline-secondary" data-toggle="modal"
+                               data-target="#exampleModal1"
+                            ></a>
+                        </div>
                     </div>
                 </div>
             </div>

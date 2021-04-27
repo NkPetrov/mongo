@@ -18,7 +18,15 @@ class PartController(
     fun deletePart(@PathVariable("partId") partId: String,
                    @PathVariable("listId") listId: String
     ): String {
-        questionnaireService.deletePart(partId)
+        var list = questionnaireService.getListQuestionnaireByListId(listId)
+        var part = questionnaireService.getPartQuestionnaireByPartId(partId)
+        if(list!!.parts!!.contains(part)) {
+            list!!.parts!!.remove(part)
+            questionnaireService.saveEditList(list)
+        }else{
+            questionnaireService.recursSearchPart(listId ,part)
+        }
+        questionnaireService.deletePart(part!!)
         return "redirect:/main/editList/${listId}"
     }
 
