@@ -73,25 +73,12 @@ class QuestionnaireService(
 
     fun deleteList(listId: String) = listQuestionnaireRepo.deleteById(listId)
 
-    fun getPartRecursiveList(parts: List<PartQuestionnaire>): List<PartQuestionnaire>? {
+    fun getPartRecursiveList(parts: MutableList<PartQuestionnaire>): List<PartQuestionnaire>? {
         if (parts != null) {
             return parts.flatMap { getPartRecursive(it) }
                 .toList()
-                .sortedBy { it.number }
         } else return null
     }
-
-//    fun getPartRecursiveList(parts: List<PartQuestionnaire>?): List<PartQuestionnaire>? {
-////        if (parts != null) {
-////            for (part: PartQuestionnaire in parts) {
-////                if (part.children != null) {
-////                    return getPartRecursiveList(part.children)
-////                }
-////                return part.children
-////            }
-////        }
-////        return null
-////    }
 
     fun getPartRecursive(part: PartQuestionnaire): List<PartQuestionnaire> {
         return if (part.children != null) {
@@ -101,26 +88,26 @@ class QuestionnaireService(
         }
     }
 
-    fun getNumberPart(parts: MutableList<PartQuestionnaire>?) {
-        if (parts != null) {
-            getNumberParentPart(parts)
-            for (part: PartQuestionnaire in parts) {
-                if (part.children != null) {
-                    getNumberParentPart(part.children)
-                    part.number += part.number.plus(".1")
-                    getNumberPart(part.children)
-                }
-                saveEditPart(part)
-            }
-        }
-    }
-
-    fun getNumberParentPart(parts: MutableList<PartQuestionnaire>?) {
-        parts?.forEachIndexed { index, element ->
-            element.number += index.plus(1).toString()
-            saveEditPart(element)
-        }
-    }
+//    fun getNumberPart(parts: MutableList<PartQuestionnaire>?) {
+//        if (parts != null) {
+//            getNumberParentPart(parts)
+//            for (part: PartQuestionnaire in parts) {
+//                if (part.children != null) {
+//                    getNumberParentPart(part.children)
+//                    part.number += part.number.plus(".1")
+//                    getNumberPart(part.children)
+//                }
+//                saveEditPart(part)
+//            }
+//        }
+//    }
+//
+//    fun getNumberParentPart(parts: MutableList<PartQuestionnaire>?) {
+//        parts?.forEachIndexed { index, element ->
+//            element.number += index.plus(1).toString()
+//            saveEditPart(element)
+//        }
+//    }
 
     fun recursSearchPart(listId: String, partSearch: PartQuestionnaire?) {
         var partsList = getListQuestionnaireByListId(listId)!!.parts
@@ -143,4 +130,41 @@ class QuestionnaireService(
             }
         }
     }
+
+
+    fun recursSearchPartChildren(listId: String, partSearch: PartQuestionnaire?): String{
+        var returnPartId: String = ""
+        var partsList = getListQuestionnaireByListId(listId)!!.parts
+        for (part in partsList!!) {
+            returnPartId = recursSearchPartChildren(partSearch!!, part).toString()
+        }
+        return returnPartId
+    }
+
+    fun recursSearchPartChildren(partSearch: PartQuestionnaire, partsChildren: PartQuestionnaire): String {
+        var returnPartId: String = ""
+        if (partsChildren.children!!.size != 0) {
+            for (part in partsChildren.children!!) {
+                if (part == partSearch) {
+                    return partsChildren.partId
+                } else {
+                    returnPartId = recursSearchPartChildren(partSearch, part)
+                }
+            }
+        }
+        return returnPartId
+    }
+
+//    fun getPartRecursiveList(parts: List<PartQuestionnaire>?): List<PartQuestionnaire>? {
+////        if (parts != null) {
+////            for (part: PartQuestionnaire in parts) {
+////                if (part.children != null) {
+////                    return getPartRecursiveList(part.children)
+////                }
+////                return part.children
+////            }
+////        }
+////        return null
+////    }
+
 }

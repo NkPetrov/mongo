@@ -38,7 +38,21 @@
     <div class="row">
         <div class="col d-flex justify-content-center">
             <div class="card-body">
-                <form th:action="@{'/main/editInnerPart/'+${listId}}" th:object="${part}" method="post">
+                <form th:action="@{'/main/editInnerPart/'+${list.listId}}" th:object="${part}" method="post">
+                    <div class="form-group">
+                        <label>Родительский раздел</label>
+                        <select th:name="'partIdSelected'" th:placeholder="'text'" class="form-control">
+                            <table>
+                                <tbody>
+                                <tr th:each="part: ${partsRecursive}">
+                                    <option th:value="${part.partId}" th:text="${part.name}" th:name="'partIdSelected'">
+                                    </option>
+                                </tr>
+                                <option th:text="${list.listName}" th:value="${list.listId}" th:name="'partIdSelected'"></option>
+                                </tbody>
+                            </table>
+                        </select>
+                    </div>
                     <div class="form-group" th:hidden="${true}">
                         <label>parentId</label>
                         <input th:field="*{parentId}" class="form-control">
@@ -50,10 +64,6 @@
                     <div class="form-group" th:hidden="${true}">
                         <label>questions</label>
                         <input th:field="*{questions}" class="form-control">
-                    </div>
-                    <div class="form-group" th:hidden="${true}">
-                        <label>number</label>
-                        <input th:field="*{number}" class="form-control">
                     </div>
                     <div class="form-group" th:hidden="${true}">
                         <label>PartId</label>
@@ -70,11 +80,11 @@
                         </div>
                         <div class="col-2 d-flex justify-content-center">
                             <a th:text="${'Удалить'}"
-                               th:href="@{'/part/deletePart/'+${listId}+'/'+${part.partId}}"
+                               th:href="@{'/part/deletePart/'+${list.listId}+'/'+${part.partId}}"
                                class="btn btn-outline-danger" style="margin-top: 1%"></a>
                         </div>
                         <div class="col-1.5">
-                            <form th:action="@{'/main/editList/'+${listId}}" method="post" class="d-flex justify-content-center">
+                            <form th:action="@{'/main/editList/'+${listId}}" method="get" class="d-flex justify-content-center">
                                 <input type="submit" th:value="${'Отмена'}" class="btn btn-outline-danger"/>
                             </form>
                         </div>

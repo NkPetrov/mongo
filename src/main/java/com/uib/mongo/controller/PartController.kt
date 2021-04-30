@@ -31,21 +31,28 @@ class PartController(
     }
 
     @PostMapping("/addPart/{listId}")
-    fun editPart(@PathVariable("listId") listId: String,
+    fun addPart(@PathVariable("listId") listId: String,
                  @RequestParam("partIdSelected") partIdSelected: String,
                  part: PartQuestionnaire): String {
-        if(partIdSelected == "list"){
-            var parentList = questionnaireService.getListQuestionnaireByListId(listId)
-            var partSaving = PartQuestionnaire(name = part.name)
-            partSaving.parentId = "list"
-            questionnaireService.saveEditPart(partSaving)
-            parentList!!.parts!!.add(partSaving)
-            questionnaireService.saveEditList(parentList)
-        }else{
-            var parentPart = questionnaireService.getPartQuestionnaireByPartId(partIdSelected)
+
+        var partSelected = questionnaireService.getPartQuestionnaireByPartId(partIdSelected)
+
+        if (partSelected != null) {
+
+            part.parentId = partIdSelected
             var partSaved = questionnaireService.saveEditPart(part)
-            parentPart!!.children!!.add(partSaved)
-            questionnaireService.saveEditPart(parentPart!!)
+
+            partSelected!!.children!!.add(partSaved)
+            questionnaireService.saveEditPart(partSelected)
+        }else if (partSelected == null) {
+
+            var listSelected = questionnaireService.getListQuestionnaireByListId(listId)
+            part.parentId = listId
+            var partSaving = questionnaireService.saveEditPart(part)
+
+            listSelected!!.parts!!.add(partSaving)
+
+            questionnaireService.saveEditList(listSelected)
         }
 
         return "redirect:/main/editList/${listId}"

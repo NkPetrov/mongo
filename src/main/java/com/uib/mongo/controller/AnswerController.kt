@@ -69,7 +69,11 @@ class AnswerController(
             @RequestParam("questionId") questionId: String,
             attribute: RedirectAttributes
     ): RedirectView {
+        var parentQuestion = questionnaireService.getQuestionByQuestionId(questionId)
+        var deletedAnswer = questionnaireService.getAnswerById(answerId)
         questionnaireService.deleteAnswer(answerId)
+        parentQuestion!!.answers!!.remove(deletedAnswer!!)
+        questionnaireService.saveEditQuestion(parentQuestion)
 
         attribute.addAttribute("questionId", questionId)
         attribute.addAttribute("partId", partId)

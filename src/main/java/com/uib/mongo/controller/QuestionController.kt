@@ -49,7 +49,7 @@ class QuestionController(
         @RequestParam("questionId") questionId: String,
         @RequestParam("nameQuestion") nameQuestion: String,
         attribute: RedirectAttributes
-    ): RedirectView{
+    ): String{
         var editQuestion = questionnaireService.getQuestionByQuestionId(questionId)
         var editPart = questionnaireService.getPartQuestionnaireByPartId(partId)
 
@@ -71,7 +71,7 @@ class QuestionController(
 
         attribute.addAttribute("partId", partId)
         attribute.addAttribute("questionId", editQuestion!!.questionId)
-        return RedirectView("/question/editQuestion/${listId}")
+        return "redirect:/main/editList/${listId}"
 
        // return "redirect:/main/editList/${listId}"
     }

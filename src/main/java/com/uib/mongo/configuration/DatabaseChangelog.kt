@@ -123,24 +123,24 @@ class DatabaseChangelog {
         //add inner part
         var partFactorsAuthI1: MutableList<PartQuestionnaire> = mutableListOf(
                 partQuestionnaireRepo.insert(PartQuestionnaire(name = "Предусмотрена возможность настройки различных сочетаний групп символов, используемых в пароле:",
-                        parentId = "inner", questions = questionFactorsAuthI1, number = "")),
+                        parentId = "inner", questions = questionFactorsAuthI1)),
                 partQuestionnaireRepo.insert(PartQuestionnaire(name = "Если используется соль, то она удовлетворяет следующим условиям",
-                        parentId = "inner", questions = questionFactorsAuthI2, number = "")))
+                        parentId = "inner", questions = questionFactorsAuthI2)))
 
         //add inner part
         var partFactorsAuth: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "2.1 Логин и пароль",parentId = "inner", children = partFactorsAuthI1, questions = questionFactorsAuth, number = "")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "2.1 Логин и пароль",parentId = "inner", children = partFactorsAuthI1, questions = questionFactorsAuth)))
 
         //add external part
         var partList: MutableList<PartQuestionnaire> = mutableListOf(
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "1. Аутентификация", parentId = "list", number = "",questions = questionsAuth )),
-                partQuestionnaireRepo.insert(PartQuestionnaire(name = "2. Факторы аутентификации", children = partFactorsAuth, parentId = "list", number = "")))
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "1. Аутентификация", parentId = "list",questions = questionsAuth )),
+                partQuestionnaireRepo.insert(PartQuestionnaire(name = "2. Факторы аутентификации", children = partFactorsAuth, parentId = "list")))
 
 
         //add lists
         var list1: MutableList<ListQuestionnaire> = mutableListOf(
                 listQuestionnaireRepo.insert(ListQuestionnaire(listName = "Требования к аутентификации пользователей", parts = partList, domainSections = domain)))
 
-        questionnaireRepository.insert(Questionnaire(name = "Поведенческая Биометрия", lists = list1, creator = "admin"))
+        questionnaireRepository.insert(Questionnaire(name = "Шаблон опросника", lists = list1, creator = "admin"))
     }
 }

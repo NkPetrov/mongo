@@ -16,11 +16,11 @@
 <body class="alert">
 <div class="alert alert-primary">
     <div class="row">
-        <div class="col-1">
-            <form th:action="@{/main/createWidget}" method="get" class="d-flex justify-content-start">
-                <input type="submit" th:value="'Добавить проект'" class="btn btn-outline-primary"/>
-            </form>
-        </div>
+<!--        <div class="col-1">-->
+<!--            <form th:action="@{/main/createWidget}" method="get" class="d-flex justify-content-start">-->
+<!--                <input type="submit" th:value="'Добавить проект'" class="btn btn-outline-primary"/>-->
+<!--            </form>-->
+<!--        </div>-->
         <div class="col">
             <form th:action="@{/logout}" method="post" class="d-flex justify-content-end">
                 <input type="submit" th:value="${'Выход'}" class="btn btn-outline-danger"/>
@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="col-3 align-self-center d-flex justify-content-end">
-                        <div class="dropup" style="margin-right:0.5rem">
+                        <div class="dropup" style="margin-right:0.5rem" th:hidden="${true}">
                             <button class="badge badge-success badge-pill"
                                     th:id="dropdownMenu2+${questionnaires.questionnaireId}"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -110,7 +110,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="dropup" style="margin-right:0.5rem">
+                        <div class="dropup" style="margin-right:0.5rem" th:hidden="${true}">
                             <button class="badge badge-warning badge-pill"
                                     th:id="dropdownMenu3+${questionnaires.questionnaireId}"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -127,7 +127,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="dropup" style="margin-right:0.5rem">
+                        <div class="dropup" style="margin-right:0.5rem" th:hidden="${true}">
                             <button class="badge badge-danger badge-pill"
                                     th:id="dropdownMenu4+${questionnaires.questionnaireId}"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -143,7 +143,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="dropup" style="margin-right:0.5rem">
+                        <div class="dropup" style="margin-right:0.5rem" th:hidden="${true}">
                             <button class="badge badge-secondary badge-pill"
                                     th:id="dropdownMenu5+${questionnaires.questionnaireId}"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -160,18 +160,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-1.5 align-self-center d-flex justify-content-center">
-                        <div class="col d-flex justify-content-end">
-                            <form class="align-self-center"
-                                  th:action="@{'/main/deleteProject/'+${questionnaires.questionnaireId}}"
-                                  th:method="get">
-                                <input type="submit" value="Удалить" class="btn btn-outline-primary"/>
-                            </form>
+                    <div th:hidden="${true}">
+                        <div class="col-1.5 align-self-center d-flex justify-content-center">
+                            <div class="col d-flex justify-content-end">
+                                <form class="align-self-center"
+                                      th:action="@{'/main/deleteProject/'+${questionnaires.questionnaireId}}"
+                                      th:method="get">
+                                    <input type="submit" value="Удалить" class="btn btn-outline-primary"/>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="collapse" th:id="collapseExample+${questionnaires.questionnaireId}">
+            <div class="collapse show" th:id="collapseExample+${questionnaires.questionnaireId}">
                 <div class="card card-body">
                     <div class="row" style="bottom:5%"
                          th:each=" list : ${questionnaires.lists}">

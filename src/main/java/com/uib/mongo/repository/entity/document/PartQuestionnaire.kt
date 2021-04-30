@@ -13,7 +13,6 @@ data class PartQuestionnaire(
         @field:DBRef
         var questions: MutableList<Question>? = mutableListOf(),
 
-        override var number: String? = null,
         override var name: String? = null
 ): GenerateUUID, SectionQuestionnaire {
         @field:Id
